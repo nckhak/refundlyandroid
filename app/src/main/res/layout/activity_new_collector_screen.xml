@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:orientation="vertical"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:background="@color/colorLightGreen"
+        tools:context="com.patrick.refundly.newCollectorScreen">
+
+
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:id="@+id/imageView2"
+        android:src="@drawable/collector"
+        android:layout_gravity="center"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Brugernavn"
+        android:id="@+id/newCollectorUsername"
+        android:textColor="@color/colorWhite"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:background="@color/colorWhite"
+        android:ems="10"
+        android:id="@+id/newCollectorUserNameEditText"
+        android:textSize="24dp"
+        android:selectAllOnFocus="true"
+        android:hint="Brugernavn"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Telefon nummer"
+        android:id="@+id/newCollectorPhoneNumber"
+        android:textColor="@color/colorWhite"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:background="@color/colorWhite"
+        android:ems="10"
+        android:id="@+id/newCollectorPhoneNumberEditText"
+        android:textSize="24dp"
+        android:selectAllOnFocus="true"
+        android:hint="Telefonnummer"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="E-mail"
+        android:id="@+id/newCollectorEmail"
+        android:textColor="@color/colorWhite"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:background="@color/colorWhite"
+        android:ems="10"
+        android:id="@+id/newCollectorEmailEditText"
+        android:textSize="24dp"
+        android:selectAllOnFocus="true"
+        android:hint="E-mail"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@color/colorDarkGreen"
+        android:textColor="@color/colorWhite"
+        android:text="Opret"
+        android:id="@+id/newCollectorButton"
+        android:layout_gravity="right" />
+
+</LinearLayout>
+
