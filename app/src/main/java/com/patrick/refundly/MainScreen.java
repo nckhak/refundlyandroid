@@ -50,7 +50,7 @@ public class MainScreen extends AppCompatActivity implements View.OnClickListene
             else
                 System.out.println("FORKERTLOGIN!");
 
-            Intent i = new Intent(this, gpsScreen.class);
+            Intent i = new Intent(this, MapScreen.class);
             startActivity(i);
         }
         if(v==newUserButton)

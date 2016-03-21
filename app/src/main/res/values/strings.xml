@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Refundly</string>
+    <string name="title_activity_map_screen">Map</string>
+    <string name="google_app_id">257762151236</string>
 </resources>
