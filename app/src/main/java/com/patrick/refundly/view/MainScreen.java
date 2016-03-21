@@ -29,8 +29,6 @@ public class MainScreen extends AppCompatActivity implements View.OnClickListene
         userNameText.setOnClickListener(this);
         passwordText = (EditText) findViewById(R.id.passwordTextEdit);
         passwordText.setOnClickListener(this);
-
-
     }
 
     @Override

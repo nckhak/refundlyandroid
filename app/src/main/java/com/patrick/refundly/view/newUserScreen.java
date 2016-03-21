@@ -29,7 +29,8 @@ public class newUserScreen extends AppCompatActivity implements View.OnClickList
     {
         if(v==newPosterIcon)
         {
-
+            Intent i = new Intent(this, newPosterScreen.class);
+            startActivity(i);
         }
         if(v==newCollectorIcon)
         {

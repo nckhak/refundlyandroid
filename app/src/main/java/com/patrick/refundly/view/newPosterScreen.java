@@ -1,33 +1,32 @@
 package com.patrick.refundly.view;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
 import com.patrick.refundly.R;
 
-public class newCollectorScreen extends AppCompatActivity implements View.OnClickListener{
+public class newPosterScreen extends Activity implements View.OnClickListener{
 
-    private Button newUserButton;
-
+    Button newPosterButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_new_collector_screen);
+        setContentView(R.layout.activity_new_poster_screen);
 
-        newUserButton = (Button)findViewById(R.id.newCollectorButton);
-        newUserButton.setOnClickListener(this);
+        newPosterButton = (Button)findViewById(R.id.newPosterButton);
+        newPosterButton.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        if(v==newUserButton){
+        if(v==newPosterButton){
             AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(this);
-            dlgAlert.setMessage("Tak for din oprettelse. Vi ringer dig op snarest muligt, så du kan tage din konto i brug.");
+            dlgAlert.setMessage("Din bruger er nu oprettet og klar til brug.");
             dlgAlert.setTitle("Bruger oprettet");
             dlgAlert.setPositiveButton("Ok",
                     new DialogInterface.OnClickListener() {
@@ -39,7 +38,7 @@ public class newCollectorScreen extends AppCompatActivity implements View.OnClic
             dlgAlert.create().show();
         }
     }
-    
+
     public void userConfirmed(){
         Intent i=new Intent(this, MainScreen.class);
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
