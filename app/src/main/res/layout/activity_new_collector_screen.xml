@@ -12,79 +12,88 @@
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin"
         android:background="@color/colorLightGreen"
-        tools:context="com.patrick.refundly.newCollectorScreen">
+        tools:context=".view.newCollectorScreen">
 
 
     <ImageView
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:id="@+id/imageView2"
+        android:layout_width="100dp"
+        android:layout_height="125dp"
+        android:id="@+id/newCollectorHeaderImage"
         android:src="@drawable/collector"
         android:layout_gravity="center"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Brugernavn"
-        android:id="@+id/newCollectorUsername"
-        android:textColor="@color/colorWhite"/>
+        android:text="Udfyld venligst nedenstående skema"
+        android:id="@+id/newCollectorTextHeader"
+        android:textColor="@color/colorText"/>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:inputType="textPersonName"
-        android:background="@color/colorWhite"
         android:ems="10"
         android:id="@+id/newCollectorUserNameEditText"
-        android:textSize="24dp"
+        android:textSize="20sp"
         android:selectAllOnFocus="true"
-        android:hint="Brugernavn"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Telefon nummer"
-        android:id="@+id/newCollectorPhoneNumber"
-        android:textColor="@color/colorWhite"/>
+        android:hint="Brugernavn"
+        android:imeOptions="actionNext"/>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:background="@color/colorWhite"
+        android:layout_marginTop="10dp"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/newCollectorPasswordEditText"
+        android:textSize="20sp"
+        android:selectAllOnFocus="true"
+        android:hint="Password"
+        android:imeOptions="actionNext"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:inputType="text|phone"
         android:ems="10"
         android:id="@+id/newCollectorPhoneNumberEditText"
-        android:textSize="24dp"
+        android:textSize="20sp"
         android:selectAllOnFocus="true"
-        android:hint="Telefonnummer"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="E-mail"
-        android:id="@+id/newCollectorEmail"
-        android:textColor="@color/colorWhite"/>
+        android:hint="Telefonnummer"
+        android:imeOptions="actionNext"/>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:background="@color/colorWhite"
+        android:layout_marginTop="10dp"
+        android:inputType="textEmailAddress"
         android:ems="10"
         android:id="@+id/newCollectorEmailEditText"
-        android:textSize="24dp"
+        android:textSize="20sp"
         android:selectAllOnFocus="true"
-        android:hint="E-mail"/>
+        android:hint="E-mail"
+        android:imeOptions="actionDone"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Som et led i vores valideringsprocess, vil du blive ringet op af en medarbejder, inden din konto kan tages i brug"
+        android:textSize="16sp"
+        android:id="@+id/newCollectorTextFooter"
+        android:textColor="@color/colorText"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:background="@color/colorDarkGreen"
+        android:background="@drawable/rounded_btn"
         android:textColor="@color/colorWhite"
         android:text="Opret"
         android:id="@+id/newCollectorButton"

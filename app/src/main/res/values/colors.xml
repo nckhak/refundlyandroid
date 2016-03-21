@@ -4,13 +4,18 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color> -->
 
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#459131</color>
+    <color name="colorPrimaryDark">#195319</color>
+    <color name="colorAccent">#FFFFFF</color>
 
 
-    <color name="colorLightGreen">#669933</color>
+    <!--<color name="colorLightGreen">#669933</color>
+    <color name="colorDarkGreen">#195319</color>
+    <color name="colorWhite">#FFFFFF</color>-->
+
+    <color name="colorLightGreen">#f1f8e9</color>
     <color name="colorDarkGreen">#195319</color>
     <color name="colorWhite">#FFFFFF</color>
+    <color name="colorText">#195319</color>
 
 </resources>

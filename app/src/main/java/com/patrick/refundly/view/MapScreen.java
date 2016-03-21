@@ -1,4 +1,4 @@
-package com.patrick.refundly;
+package com.patrick.refundly.view;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -22,6 +22,9 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.patrick.refundly.Controller;
+import com.patrick.refundly.R;
+import com.patrick.refundly.model.Collection;
 
 public class MapScreen extends FragmentActivity implements OnMapReadyCallback, com.google.android.gms.location.LocationListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
@@ -34,7 +37,6 @@ public class MapScreen extends FragmentActivity implements OnMapReadyCallback, c
     private double mMarkerratio = 1.2027;
     private boolean hasCenteredCamera = false;
     private boolean hasCollection = true;
-    Collection collection;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +47,6 @@ public class MapScreen extends FragmentActivity implements OnMapReadyCallback, c
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-
         if (mGoogleApiClient == null) {
             mGoogleApiClient = new GoogleApiClient.Builder(this)
                     .addConnectionCallbacks(this)
@@ -54,14 +55,12 @@ public class MapScreen extends FragmentActivity implements OnMapReadyCallback, c
                     .build();
         }
 
-        //TIL TEST AF COLLECTION MARKER!
-        collection = new Collection();
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(55.676097, 12.568337),11));
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             System.out.println("Fejl: onMapReady - kunne ikke få adgang til user permissions");
             return;
@@ -73,7 +72,7 @@ public class MapScreen extends FragmentActivity implements OnMapReadyCallback, c
         mUserMarker.setVisible(false);
 
         if(hasCollection) {
-            MarkerOptions collectionMarker = new MarkerOptions().position(collection.getPosition()).icon(BitmapDescriptorFactory.fromBitmap(resize(R.drawable.collection)));
+            MarkerOptions collectionMarker = new MarkerOptions().position(Controller.controller.getCollection().getPosition()).icon(BitmapDescriptorFactory.fromBitmap(resize(R.drawable.collection)));
             mCollectionMarker = mMap.addMarker(collectionMarker);
             mCollectionMarker.setVisible(false);
         }
@@ -161,9 +160,10 @@ public class MapScreen extends FragmentActivity implements OnMapReadyCallback, c
         double dLatitude = mLastLocation.getLatitude();
         double dLongitude = mLastLocation.getLongitude();
 
-        updateMapMarkers(new LatLng(dLatitude,dLongitude));
+        updateMapMarkers(new LatLng(dLatitude, dLongitude));
         if(!hasCenteredCamera) {
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(dLatitude, dLongitude), 15));
+            //mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(dLatitude, dLongitude), 15));
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(dLatitude, dLongitude), 15));
             hasCenteredCamera = true;
         }
     }
@@ -173,7 +173,7 @@ public class MapScreen extends FragmentActivity implements OnMapReadyCallback, c
         mUserMarker.setVisible(true);
 
         if(hasCollection) {
-            mCollectionMarker.setPosition(collection.getPosition());
+            mCollectionMarker.setPosition(Controller.controller.getCollection().getPosition());
             mCollectionMarker.setVisible(true);
         }
     }

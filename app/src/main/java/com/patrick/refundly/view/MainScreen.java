@@ -1,4 +1,4 @@
-package com.patrick.refundly;
+package com.patrick.refundly.view;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
+import com.patrick.refundly.R;
 
 public class MainScreen extends AppCompatActivity implements View.OnClickListener
 {
