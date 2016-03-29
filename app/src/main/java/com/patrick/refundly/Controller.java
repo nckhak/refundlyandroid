@@ -1,40 +1,46 @@
 package com.patrick.refundly;
 import android.app.Application;
 import android.content.Context;
+import android.net.ConnectivityManager;
 
-import com.patrick.refundly.model.*;
+import com.patrick.refundly.domain.Collection;
+import com.patrick.refundly.domain.User;
 
 /**
  * Created by patrick on 3/21/16.
  */
 public class Controller extends Application{
     public static Controller controller;
-    Collector mCollector;
-    Poster mPoster;
-    Collection mcollection;
+    User mUser;
+    Collection mCollection;
 
     public void onCreate() {
         super.onCreate();
         //Do Application initialization over here
         controller = this;
-        mcollection = new Collection();
+        mCollection = new Collection();
     }
 
-    public void newCollector(String name, String password, String phonenumber, String email){
-        mCollector = new Collector();
-        mCollector.setUserName(name);
-        mCollector.setPhoneNumber(phonenumber);
-        mCollector.setEmail(email);
+    public void newUser(String name, String id, String email){
+        mUser = new User();
+        mUser.setUserName(name);
+        mUser.setmId(id);
+        mUser.setEmail(email);
     }
 
-    public void newPoster(){
-    }
-
-    public boolean checkLogin(String username, String password){
-        return true;
+    public User getUser(){
+        return mUser;
     }
 
     public Collection getCollection(){
-        return mcollection;
+        return mCollection;
+    }
+
+    public boolean isConnected(){
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        if(cm.getActiveNetworkInfo() != null)
+            return cm.getActiveNetworkInfo().isConnected();
+        else
+            return false;
     }
 }

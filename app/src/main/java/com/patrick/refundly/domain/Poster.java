@@ -1,4 +1,4 @@
-package com.patrick.refundly.model;
+package com.patrick.refundly.domain;
 
 /**
  * Created by patrick on 3/21/16.

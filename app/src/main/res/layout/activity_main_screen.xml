@@ -13,6 +13,25 @@
     tools:context=".view.MainScreen">
 
     <ImageView
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_marginTop="50dp"
+        android:id="@+id/imageView3"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/logo2" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Refundly"
+        android:textSize="48dp"
+        android:textColor="@color/colorDarkGreen"
+        android:textStyle="bold"
+        android:id="@+id/textView"
+        android:layout_gravity="center_horizontal" />
+
+  <!--  <ImageView
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_marginTop="10dp"
@@ -73,5 +92,5 @@
         android:text="Ny Bruger"
         android:textColor="@color/colorWhite"
         android:id="@+id/newUserButton"
-        android:layout_marginTop="15dp" />
+        android:layout_marginTop="15dp" /> -->
 </LinearLayout>

@@ -1,4 +1,4 @@
-package com.patrick.refundly.model;
+package com.patrick.refundly.domain;
 
 import com.google.android.gms.maps.model.LatLng;
 

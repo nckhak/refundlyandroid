@@ -17,5 +17,6 @@
     <color name="colorDarkGreen">#195319</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorText">#195319</color>
+    <color name="colorRed">#FA5858</color>
 
 </resources>
