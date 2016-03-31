@@ -2,4 +2,20 @@
     <string name="app_name">Refundly</string>
     <string name="title_activity_map_screen">Map</string>
     <string name="google_app_id">257762151236</string>
+
+
+    <string name="menu_settings">Indstillinger</string>
+
+
+    <string name="pref_collector">Ændr bruger til opsamler</string>
+    <string name="pref_collector_summary">Giver adgang til opsamlerfunktionerne i appen. Telefonnummer skal være indtastet, før denne funktion kan tilgås. Du vil blive kontaktet af en medarbejder pr. telefon for at validere din konto, inden du får adgang.</string>
+    <string name="pref_active">Modtag besked om nye opsamlinger</string>
+    <string name="pref_active_summary">Slå denne funktion fra, hvis du i en periode, ikke ønsker at modtage besked om nye opsamlinger</string>
+    <string name="pref_password">Indtast kodeord</string>
+    <string name="pref_password_summary">Kodeordet skal kun bruges, for at kunne logge på www.refundly.dk</string>
+    <string name="pref_phonenumber">Indtast telefonnummer</string>
+    <string name="pref_phonenumber_summary">Dit telefonnummer skal kun bruges til validering, hvis du ønsker at blive opsamler</string>
+
+    <string name="pref_user_profile">Profil</string>
+    <string name="pref_update_setting">App indstillinger</string>
 </resources>

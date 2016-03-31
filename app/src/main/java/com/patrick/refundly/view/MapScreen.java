@@ -1,6 +1,7 @@
 package com.patrick.refundly.view;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -8,6 +9,9 @@ import android.location.Location;
 import android.support.v4.app.ActivityCompat;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -37,14 +41,19 @@ public class MapScreen extends AppCompatActivity implements OnMapReadyCallback, 
     private boolean hasCenteredCamera = false;
     private boolean hasCollection = true;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map_screen);
 
+
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
 
         if (mGoogleApiClient == null) {
             mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -53,8 +62,37 @@ public class MapScreen extends AppCompatActivity implements OnMapReadyCallback, 
                     .addApi(LocationServices.API)
                     .build();
         }
-
     }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_settings:
+                Intent intent = new Intent(this, SettingsScreen.class);
+                startActivity(intent);
+                return true;
+
+            case R.id.action_favorite:
+                // User chose the "Favorite" action, mark the current item
+                // as a favorite...
+                return true;
+
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+
+        }
+    }
+
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -75,9 +113,6 @@ public class MapScreen extends AppCompatActivity implements OnMapReadyCallback, 
             mCollectionMarker = mMap.addMarker(collectionMarker);
             mCollectionMarker.setVisible(false);
         }
-        createLocationRequest();
-
-
     }
 
     private Bitmap resize(int image) {
@@ -115,6 +150,7 @@ public class MapScreen extends AppCompatActivity implements OnMapReadyCallback, 
 
     @Override
     public void onConnected(Bundle bundle) {
+        createLocationRequest();
         startLocationUpdates();
     }
 
@@ -137,14 +173,18 @@ public class MapScreen extends AppCompatActivity implements OnMapReadyCallback, 
 
     @Override
     protected void onStop() {
-        mGoogleApiClient.disconnect();
+        if (mGoogleApiClient.isConnected()) {
+            mGoogleApiClient.disconnect();
+        }
         super.onStop();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        stopLocationUpdates();
+        if (mGoogleApiClient.isConnected()) {
+            stopLocationUpdates();
+        }
     }
 
     @Override

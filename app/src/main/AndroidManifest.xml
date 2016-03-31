@@ -27,7 +27,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".view.newCollectorScreen" />
+
         <activity android:name=".view.newUserScreen" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -48,7 +50,13 @@
             android:name=".view.MapScreen"
             android:label="Refundly" />
         <activity android:name=".view.newPosterScreen" />
+
         <activity android:name=".view.CollectorMainScreen"></activity>
+
+        <activity
+            android:name=".view.SettingsScreen"
+            android:label="Preferences">
+        </activity>
     </application>
 
 </manifest>
