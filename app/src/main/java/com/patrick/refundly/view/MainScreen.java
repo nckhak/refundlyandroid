@@ -65,7 +65,7 @@ public class MainScreen extends AppCompatActivity
     }
 
     public void goToMapscreen(){
-        Intent i=new Intent(this, MapScreen.class);
+        Intent i=new Intent(this, MapScreenPoster.class);
         i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(i);
         finish();

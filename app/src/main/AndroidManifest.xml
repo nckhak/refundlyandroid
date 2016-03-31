@@ -49,6 +49,11 @@
         <activity
             android:name=".view.MapScreen"
             android:label="Refundly" />
+
+        <activity
+            android:name=".view.MapScreenPoster"
+            android:label="Refundly" />
+
         <activity android:name=".view.newPosterScreen" />
 
         <activity android:name=".view.CollectorMainScreen"></activity>
