@@ -2,6 +2,8 @@ package com.patrick.refundly.view;
 
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
+import android.preference.PreferenceFragment;
+
 import com.patrick.refundly.R;
 
 /**
@@ -14,7 +16,9 @@ public class SettingsScreen extends PreferenceActivity{
         super.onCreate(savedInstanceState);
 
         addPreferencesFromResource(R.xml.settings);
+
         setTheme(R.style.PreferenceStyle);
     }
+
 
 }

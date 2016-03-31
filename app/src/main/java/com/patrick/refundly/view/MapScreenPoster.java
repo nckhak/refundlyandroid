@@ -1,11 +1,13 @@
 package com.patrick.refundly.view;
 
 import android.Manifest;
+import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Location;
+import android.media.audiofx.BassBoost;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
@@ -35,14 +37,22 @@ import com.patrick.refundly.R;
 
 public class MapScreenPoster extends AppCompatActivity implements OnMapReadyCallback, LocationListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, NavigationView.OnNavigationItemSelectedListener {
 
-    private GoogleMap mMap;
+    //Variabler til google location services
     private GoogleApiClient mGoogleApiClient;
     private Location mLastLocation;
     private LocationRequest mLocationRequest;
+
+    //Variabler til mapvisning og markører
+    private GoogleMap mMap;
     private Marker mUserMarker, mCollectionMarker;
     private int mMarkerWidth = 200;
     private double mMarkerratio = 1.2027;
+
+    //Viser om appen har centreret kameraet (bliver sat til true efter første gang)
+    //Ellers ville appen centrere kamera hver gang gps position opdateres
     private boolean hasCenteredCamera = false;
+
+    //Har brugeren adgang til en opsamling
     private boolean hasCollection = true;
 
 
@@ -50,7 +60,6 @@ public class MapScreenPoster extends AppCompatActivity implements OnMapReadyCall
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map_screen_poster);
-
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -68,6 +77,7 @@ public class MapScreenPoster extends AppCompatActivity implements OnMapReadyCall
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        //Opretter googleapiclient, hvis den ikke findes
         if (mGoogleApiClient == null) {
             mGoogleApiClient = new GoogleApiClient.Builder(this)
                     .addConnectionCallbacks(this)

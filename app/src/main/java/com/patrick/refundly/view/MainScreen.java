@@ -64,6 +64,7 @@ public class MainScreen extends AppCompatActivity
 
     }
 
+    //Åbner mapscreen, og fjerner mainscreen fra stacken, så man ikke kan gå tilbage hertil
     public void goToMapscreen(){
         Intent i=new Intent(this, MapScreenPoster.class);
         i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -71,6 +72,7 @@ public class MainScreen extends AppCompatActivity
         finish();
     }
 
+    //Dialog til valg af googlekonti
     public Dialog selectAccountDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Vælg konto");
@@ -88,6 +90,7 @@ public class MainScreen extends AppCompatActivity
         return builder.create();
     }
 
+    //Starter baggrundstråd. Opretter nyt user objekt, og går til mapscreen, hvis der blev returneret data fra google
     public void getAuthToken(){
         new AsyncTask() {
             @Override
@@ -121,6 +124,7 @@ public class MainScreen extends AppCompatActivity
         }.execute();
     }
 
+    //Kode fra AndroidElementer - læser data fra google api
     public static String readStringAndClose(InputStream is)
         throws IOException{
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
@@ -133,6 +137,7 @@ public class MainScreen extends AppCompatActivity
         return new String(bos.toByteArray(),"UTF-8");
     }
 
+    //Let redigeret kode fra AndroidElementer - Kald til google api og modtagelse af returneret JSON objekt.
     private void getAuthTokenBg(){
         try{
             String token = GoogleAuthUtil.getToken(this, accounts[selected].name, access[0]);
@@ -170,6 +175,7 @@ public class MainScreen extends AppCompatActivity
         }
     }
 
+    //Kode fra Androidelementer. Modtager svar fra permission dialog
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         if(requestCode == 1001){
@@ -189,6 +195,7 @@ public class MainScreen extends AppCompatActivity
         super.onActivityResult(requestCode, resultCode, data);
     }
 
+    //Dialoger til fejlmeddelelser
     public void problemDialog(int j){
         AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(this);
         if(j==1) {
