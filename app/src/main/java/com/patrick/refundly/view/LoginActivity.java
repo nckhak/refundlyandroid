@@ -27,7 +27,12 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class MainScreen extends AppCompatActivity
+/*
+Basis for kode vedrørende google-login er taget fra undervisningsappen
+Android-Elementer af Jacob Nordfalk.
+ */
+
+public class LoginActivity extends AppCompatActivity
 {
     private int selected;
     private JSONObject profile;
@@ -43,7 +48,7 @@ public class MainScreen extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_screen);
+        setContentView(R.layout.activity_login);
 
         if(Controller.controller.isConnected()) {
             if(Controller.controller.getUser() == null) {
@@ -66,12 +71,7 @@ public class MainScreen extends AppCompatActivity
 
     //Åbner mapscreen, og fjerner mainscreen fra stacken, så man ikke kan gå tilbage hertil
     public void goToMapscreen(){
-        /*Intent i=new Intent(this, MapScreenPoster.class);
-        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(i);
-        finish();*/
-
-        Intent i=new Intent(this, MainActivity.class);
+        Intent i=new Intent(this, FragmentContainer.class);
         i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(i);
         finish();

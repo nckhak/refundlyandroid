@@ -6,10 +6,12 @@ import android.support.v7.preference.PreferenceFragmentCompat;
 
 import com.patrick.refundly.R;
 
-/**
- * Created by patrick on 3/30/16.
+/*
+ * SKAL NOK LAVES OM FRA BUNDEN - VI HAR INGEN GRUND TIL AT BRUGE PREFERENCEFRAGMENT!
+ * Umiddelbart behøver vi ikke gemme ting i sharedpreferences, men kan nøjes med at bruge
+ * det brugerobjekt vi har liggende i Controlleren.
  */
-public class SettingsScreen extends PreferenceFragmentCompat {
+public class SettingsFragment extends PreferenceFragmentCompat {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

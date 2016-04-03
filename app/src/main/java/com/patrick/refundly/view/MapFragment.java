@@ -29,7 +29,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.patrick.refundly.Controller;
 import com.patrick.refundly.R;
 
-public class MapScreenPoster extends android.support.v4.app.Fragment implements OnMapReadyCallback, LocationListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+public class MapFragment extends android.support.v4.app.Fragment implements OnMapReadyCallback, LocationListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     //Variabler til google location services
     private GoogleApiClient mGoogleApiClient;
@@ -80,7 +80,7 @@ public class MapScreenPoster extends android.support.v4.app.Fragment implements 
                     .build();
         }
 
-        return inflater.inflate(R.layout.activity_map_screen_poster, container,false);
+        return inflater.inflate(R.layout.fragment_map, container,false);
     }
 
 /*    @Override
@@ -107,7 +107,7 @@ public class MapScreenPoster extends android.support.v4.app.Fragment implements 
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {
-            Intent intent = new Intent(this, SettingsScreen.class);
+            Intent intent = new Intent(this, SettingsFragment.class);
             startActivity(intent);
 
         } else if (id == R.id.nav_share) {

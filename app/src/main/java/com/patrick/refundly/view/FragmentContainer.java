@@ -15,7 +15,7 @@ import android.view.MenuItem;
 
 import com.patrick.refundly.R;
 
-public class MainActivity extends AppCompatActivity {
+public class FragmentContainer extends AppCompatActivity {
 
     private DrawerLayout mDrawer;
     private NavigationView nvDrawer;
@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.nav_menu);
 
         // Set a Toolbar to replace the ActionBar.
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         setupDrawerContent(nvDrawer);
 
         try {
-            Class fragmentClass = MapScreenPoster.class;
+            Class fragmentClass = MapFragment.class;
             Fragment fragment = null;
             fragment = (Fragment) fragmentClass.newInstance();
             FragmentManager fragmentManager = getSupportFragmentManager();
@@ -102,16 +102,16 @@ public class MainActivity extends AppCompatActivity {
         Class fragmentClass;
         switch (menuItem.getItemId()) {
             case R.id.nav_first_fragment:
-                fragmentClass = SettingsScreen.class;
+                fragmentClass = SettingsFragment.class;
                 break;
-           /* case R.id.nav_second_fragment:
-                fragmentClass = SecondFragment.class;
+            case R.id.nav_second_fragment:
+                fragmentClass = ProfileFragment.class;
                 break;
             case R.id.nav_third_fragment:
-                fragmentClass = ThirdFragment.class;
-                break;*/
+                fragmentClass = AboutFragment.class;
+                break;
             default:
-                fragmentClass = MapScreenPoster.class;
+                fragmentClass = MapFragment.class;
         }
 
         try {
@@ -147,11 +147,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.flContent);
-        if(currentFragment instanceof MapScreenPoster){
+        if(currentFragment instanceof MapFragment){
             super.onBackPressed();
         }else {
             try {
-                Class fragmentClass = MapScreenPoster.class;
+                Class fragmentClass = MapFragment.class;
                 Fragment fragment = (Fragment) fragmentClass.newInstance();
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
