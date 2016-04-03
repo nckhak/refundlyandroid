@@ -1,13 +1,12 @@
 <resources>
     <string name="app_name">Refundly</string>
+    <string name="settings_title">Indstillinger</string>
 
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <!-- Bruges af navigation draweren -->
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
 
-    <string name="action_settings">Settings</string>
-
-    <string name="menu_settings">Indstillinger</string>
-
+    <!-- Bruges i preferencefragmentet -->
     <string name="pref_collector">Ændr bruger til opsamler</string>
     <string name="pref_collector_summary">Giver adgang til opsamlerfunktionerne i appen. Telefonnummer skal være indtastet, før denne funktion kan tilgås. Du vil blive kontaktet af en medarbejder pr. telefon for at validere din konto, inden du får adgang.</string>
     <string name="pref_active">Modtag besked om nye opsamlinger</string>
@@ -17,6 +16,7 @@
     <string name="pref_phonenumber">Indtast telefonnummer</string>
     <string name="pref_phonenumber_summary">Dit telefonnummer skal kun bruges til validering, hvis du ønsker at blive opsamler</string>
 
+    <!-- Kategorier i preferencefragmentet -->
     <string name="pref_user_profile">Profil</string>
     <string name="pref_update_setting">App indstillinger</string>
 </resources>

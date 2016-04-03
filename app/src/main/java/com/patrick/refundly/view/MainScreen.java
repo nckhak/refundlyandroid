@@ -66,7 +66,12 @@ public class MainScreen extends AppCompatActivity
 
     //Åbner mapscreen, og fjerner mainscreen fra stacken, så man ikke kan gå tilbage hertil
     public void goToMapscreen(){
-        Intent i=new Intent(this, MapScreenPoster.class);
+        /*Intent i=new Intent(this, MapScreenPoster.class);
+        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(i);
+        finish();*/
+
+        Intent i=new Intent(this, MainActivity.class);
         i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(i);
         finish();
@@ -219,57 +224,4 @@ public class MainScreen extends AppCompatActivity
         dlgAlert.setCancelable(false);
         dlgAlert.create().show();
     }
-
-
-    /*Button loginButton, newUserButton;
-    EditText userNameText, passwordText;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_screen);
-
-        loginButton = (Button)findViewById(R.id.loginButton);
-        loginButton.setOnClickListener(this);
-        newUserButton = (Button)findViewById(R.id.newUserButton);
-        newUserButton.setOnClickListener(this);
-        userNameText = (EditText) findViewById(R.id.userNameTextEdit);
-        userNameText.setOnClickListener(this);
-        passwordText = (EditText) findViewById(R.id.passwordTextEdit);
-        passwordText.setOnClickListener(this);
-    }
-
-    @Override
-    public void onClick(View v)
-    {
-        if(v==userNameText)
-        {
-            //if(userNameText.getText().toString().equals("Brugernavn"))
-              //  userNameText.getText().clear();
-        }
-        if(v==passwordText)
-        {
-            //passwordText.getText().clear();
-        }
-        if(v==loginButton)
-        {
-            int userRole = Controller.controller.checkLogin(userNameText.getText().toString(), passwordText.getText().toString());
-            if(userRole == 0) {
-                Intent i = new Intent(this, CollectorMainScreen.class);
-                startActivity(i);
-            }
-            else if(userRole == 1){
-                Intent i = new Intent(this, MapScreen.class);
-                startActivity(i);
-            }
-            else if(userRole == -1)
-                Toast.makeText(this, "Brugernavn eller password er forkert", Toast.LENGTH_LONG).show();
-        }
-        if(v==newUserButton)
-        {
-            Intent i = new Intent(this, newUserScreen.class);
-            startActivity(i);
-        }
-    }*/
 }

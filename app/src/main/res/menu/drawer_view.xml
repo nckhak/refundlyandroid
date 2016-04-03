@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Nedestående er de forskellige links til undersider, der vises i menuen -->
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_first_fragment"
+            android:title="Indstillinger" />
+        <item
+            android:id="@+id/nav_second_fragment"
+            android:title="Profil" />
+        <item
+            android:id="@+id/nav_third_fragment"
+            android:title="Om Refundly" />
+    </group>
+</menu>
