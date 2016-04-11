@@ -1,18 +1,34 @@
 package com.patrick.refundly.domain;
 
+import com.patrick.refundly.Controller;
+
 /**
  * Created by patrick on 3/21/16.
  */
 public class User {
-    private String mUserName, mPhoneNumber, mEmail, mRole, mId;
-    private boolean mActive;
+    private String mUserName;
+    private String mPhoneNumber;
+    private String mEmail;
+    private String mRole;
+    private String mGoogleId;
 
-    public String getmId() {
-        return mId;
+    public String getAccountId() {
+        return mAccountId;
     }
 
-    public void setmId(String mId) {
-        this.mId = mId;
+    public void setAccountId(String mAccountId) {
+        this.mAccountId = mAccountId;
+    }
+
+    private String mAccountId;
+    private boolean mActive;
+
+    public String getmGoogleId() {
+        return mGoogleId;
+    }
+
+    public void setmGoogleId(String mGoogleId) {
+        this.mGoogleId = mGoogleId;
     }
 
     public User(){
@@ -59,7 +75,8 @@ public class User {
     }
 
     public String toString(){
-        return "Navn: "+mUserName+"Email: "+mEmail+". ID: "+mId;
+        return "Navn: "+mUserName+"Email: "+mEmail+". ID: "+ mGoogleId+
+                ". Deviceid: "+Controller.controller.getDeviceId()+". Account id: "+mAccountId+". Role: "+mRole;
     }
 
 }

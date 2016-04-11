@@ -14,6 +14,16 @@ public class Controller extends Application{
     User mUser;
     Collection mCollection;
 
+    public String getDeviceId() {
+        return mDeviceId;
+    }
+
+    public void setDeviceId(String deviceId) {
+        this.mDeviceId = deviceId;
+    }
+
+    String mDeviceId;
+
     public void onCreate() {
         super.onCreate();
         //Do Application initialization over here
@@ -24,7 +34,7 @@ public class Controller extends Application{
     public void newUser(String name, String id, String email){
         mUser = new User();
         mUser.setUserName(name);
-        mUser.setmId(id);
+        mUser.setmGoogleId(id);
         mUser.setEmail(email);
     }
 
@@ -43,4 +53,5 @@ public class Controller extends Application{
         else
             return false;
     }
+
 }

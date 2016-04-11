@@ -30,7 +30,6 @@ public class ProfileFragment extends Fragment {
             updateProfileFields(Controller.controller.getUser());
         }
 
-        // Inflate the layout for this fragment
         return v;
     }
 

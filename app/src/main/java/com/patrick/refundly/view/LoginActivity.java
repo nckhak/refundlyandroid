@@ -8,15 +8,16 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.Toast;
-
 import android.accounts.Account;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.google.android.gms.auth.GoogleAuthException;
 import com.google.android.gms.auth.GoogleAuthUtil;
 import com.google.android.gms.auth.UserRecoverableAuthException;
 import com.patrick.refundly.Controller;
 import com.patrick.refundly.R;
+import com.patrick.refundly.model.GCMClientManager;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,6 +27,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ResourceBundle;
 
 /*
 Basis for kode vedrørende google-login er taget fra undervisningsappen
@@ -50,6 +52,10 @@ public class LoginActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        /*
+        Test af REST interface
+        testAPI();
+        */
         if(Controller.controller.isConnected()) {
             if(Controller.controller.getUser() == null) {
                 AccountManager accountManager = AccountManager.get(this);
@@ -62,14 +68,92 @@ public class LoginActivity extends AppCompatActivity
                     selectAccountDialog().show();
                 }
             }
-            else
-                goToMapscreen();
+            else {
+                getDeviceId();
+                testAPI();
+            }
         }else
             problemDialog(1);
 
     }
 
-    //Åbner mapscreen, og fjerner mainscreen fra stacken, så man ikke kan gå tilbage hertil
+
+    public void testAPI()
+    {
+        new AsyncTask() {
+            @Override
+            protected Object doInBackground(Object... params) {
+                    getJsonFromServer();
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Object o) {
+                System.out.println("FÆRDIG!");
+            }
+
+        }.execute();
+    }
+
+    public void getJsonFromServer(){
+        try{
+            String email = Controller.controller.getUser().getEmail();
+            String deviceid = Controller.controller.getDeviceId();
+            System.out.println("");
+            URL url = new URL("http://refundlystaging.azurewebsites.net/api/account/loginuser/?email="+email+"&deviceId="+deviceid);
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+
+            int sc = con.getResponseCode();
+            if(sc==200) {
+                InputStream is = con.getInputStream();
+                profile = new JSONObject(readStringAndClose(is));
+                System.out.println("----------------");
+                System.out.println(profile.toString());
+
+                //Tjek for fejl fra serveren
+                if (profile.get("Error") == true) {
+                    problemDialog(3);
+                }
+                else if (profile.get("Error") == false) {
+                    Controller.controller.getUser().setRole((String) profile.get("Role"));
+                    Controller.controller.getUser().setAccountId(profile.get("AccountId").toString());
+                    System.out.println(Controller.controller.getUser().toString());
+                    goToMapscreen();
+                }
+
+            }else{
+                System.out.println("Server returnerede fejl: " + sc);
+            }
+
+        }catch (IOException e) {
+            System.out.println("IOException");
+            e.printStackTrace();
+            problemDialog(1);
+        } catch (JSONException e) {
+            System.out.println("JSONException");
+            e.printStackTrace();
+        }
+    }
+
+    public void getDeviceId(){
+        GCMClientManager gcmmanager = new GCMClientManager(this, "257762151236");
+        gcmmanager.registerIfNeeded(new GCMClientManager.RegistrationCompletedHandler() {
+            @Override
+            public void onSuccess(String registrationId, boolean isNewRegistration) {
+
+                Log.d("Registration id", registrationId);
+                Controller.controller.setDeviceId(registrationId);
+            }
+
+            @Override
+            public void onFailure(String ex) {
+                super.onFailure(ex);
+            }
+        });
+    }
+
+
+    //Åbner mapscreen, og fjerner LoginActivity fra stacken, så man ikke kan gå tilbage hertil
     public void goToMapscreen(){
         Intent i=new Intent(this, FragmentContainer.class);
         i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -104,6 +188,7 @@ public class LoginActivity extends AppCompatActivity
                 return null;
             }
 
+            //Kører når baggrundstråden er færdig
             @Override
             protected void onPostExecute(Object o) {
                 if (profile != null) {
@@ -115,7 +200,8 @@ public class LoginActivity extends AppCompatActivity
                         );
                         System.out.println("LOGGET FUCKING IND NU!");
                         System.out.println(Controller.controller.getUser().toString());
-                        goToMapscreen();
+                        getDeviceId();
+                        testAPI();
 
                     } catch (JSONException e) {
                         System.out.println("Parsning af JSON kiksede");
@@ -139,6 +225,10 @@ public class LoginActivity extends AppCompatActivity
                 bos.write(data);
             }
         is.close();
+        System.out.println("--------READINPUTSTREAM--------");
+        System.out.println(data);
+        System.out.println(new String(bos.toByteArray(), "UTF-8"));
+        System.out.println("----------------");
         return new String(bos.toByteArray(),"UTF-8");
     }
 
@@ -166,7 +256,6 @@ public class LoginActivity extends AppCompatActivity
         } catch (UserRecoverableAuthException e) {
             System.out.println("Bruger skal logge ind");
             startActivityForResult(e.getIntent(),1001);
-
         } catch (GoogleAuthException e) {
             System.out.println("authexception");
             e.printStackTrace();
