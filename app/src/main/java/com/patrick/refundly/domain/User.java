@@ -11,10 +11,12 @@ public class User {
     private String mEmail;
     private String mRole;
     private String mGoogleId;
+    private int Id;
 
     public String getAccountId() {
         return mAccountId;
     }
+
 
     public void setAccountId(String mAccountId) {
         this.mAccountId = mAccountId;
@@ -72,6 +74,14 @@ public class User {
 
     public void setActive(boolean Active) {
         this.mActive = Active;
+    }
+
+    public int getId() {
+        return Id;
+    }
+
+    public void setId(int id) {
+        Id = id;
     }
 
     public String toString(){

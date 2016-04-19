@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 
+import com.patrick.refundly.Controller;
 import com.patrick.refundly.R;
 
 public class FragmentContainer extends AppCompatActivity {
@@ -44,7 +45,27 @@ public class FragmentContainer extends AppCompatActivity {
         setupDrawerContent(nvDrawer);
 
         try {
-            Class fragmentClass = MapFragment.class;
+            String role = Controller.controller.getUser().getRole();
+            Class fragmentClass;
+
+            if (role.equals("P")){
+
+                fragmentClass = MapFragment.class;
+                nvDrawer.getMenu().findItem(R.id.nav_fourth_fragment).setVisible(true);
+
+            }else if(role.equals("C")){
+
+                fragmentClass = MapFragmentCollector.class;
+
+            }else{
+                System.out.println("/////////////////////////////////////////////////////");
+                System.out.println("/////////////////////////////////////////////////////");
+                System.out.println("///////THE USER IS NOT A PART OF THE SYSTEM YET//////");
+                System.out.println("/////////////////////////////////////////////////////");
+                System.out.println("/////////////////////////////////////////////////////");
+                return;
+            }
+
             Fragment fragment = null;
             fragment = (Fragment) fragmentClass.newInstance();
             FragmentManager fragmentManager = getSupportFragmentManager();
@@ -111,7 +132,7 @@ public class FragmentContainer extends AppCompatActivity {
                 fragmentClass = AboutFragment.class;
                 break;
             default:
-                fragmentClass = MapFragment.class;
+                return;
         }
 
         try {
@@ -147,11 +168,18 @@ public class FragmentContainer extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.flContent);
-        if(currentFragment instanceof MapFragment){
+        if(currentFragment instanceof MapFragment || currentFragment instanceof MapFragmentCollector ){
             super.onBackPressed();
         }else {
             try {
-                Class fragmentClass = MapFragment.class;
+                Class fragmentClass;
+                String role = Controller.controller.getUser().getRole();
+                if (role.equals("P")){
+                    fragmentClass = MapFragment.class;
+                }else{
+                    fragmentClass = MapFragmentCollector.class;
+                }
+
                 Fragment fragment = (Fragment) fragmentClass.newInstance();
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
@@ -170,5 +198,6 @@ public class FragmentContainer extends AppCompatActivity {
             nvDrawer.getMenu().getItem(i).setChecked(false);
         }
     }
+
 
 }

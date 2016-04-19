@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 
 import com.patrick.refundly.domain.Collection;
+import com.patrick.refundly.domain.CreateCollection;
 import com.patrick.refundly.domain.User;
 
 /**
@@ -13,6 +14,7 @@ public class Controller extends Application{
     public static Controller controller;
     User mUser;
     Collection mCollection;
+    CreateCollection currentCollection;
 
     public String getDeviceId() {
         return mDeviceId;
@@ -53,5 +55,20 @@ public class Controller extends Application{
         else
             return false;
     }
+
+    public void setNewCollection(int posterId, double latitude, double longitude, int collectionSize, String posterComment){
+
+        currentCollection = new CreateCollection();
+        currentCollection.setPosterId(posterId);
+        currentCollection.setLatitude(latitude);
+        currentCollection.setLongitude(longitude);
+        currentCollection.setCollectionSize(collectionSize);
+        currentCollection.setPosterComment(posterComment);
+   }
+
+    public CreateCollection getCurrentCollection(){
+        return currentCollection;
+    }
+
 
 }

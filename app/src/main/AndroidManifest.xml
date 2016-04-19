@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.patrick.refundly">
 
+    <uses-sdk xmlns:tools="http://schemas.android.com/tools"
+        tools:overrideLibrary="android.support.v14.preference" />
+
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -19,9 +22,6 @@
         android:protectionLevel="signature" />
 
     <uses-permission android:name="com.patrick.refundly.permission.C2D_MESSAGE" />
-
-    <uses-sdk xmlns:tools="http://schemas.android.com/tools"
-        tools:overrideLibrary="android.support.v14.preference"/>
 
     <application
         android:name=".Controller"
@@ -58,12 +58,12 @@
         <activity
             android:name=".view.FragmentContainer"
             android:screenOrientation="portrait">
-                <intent-filter>
-                    <action android:name="OPEN_ACTIVITY_1" />
-                    <category android:name="android.intent.category.DEFAULT" />
+            <intent-filter>
+                <action android:name="OPEN_ACTIVITY_1" />
+
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
 
         <receiver
             android:name="com.google.android.gms.gcm.GcmReceiver"
@@ -71,6 +71,7 @@
             android:permission="com.google.android.c2dm.permission.SEND">
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+
                 <category android:name="com.patrick.testpush.gcm" />
             </intent-filter>
         </receiver>
@@ -83,6 +84,7 @@
             </intent-filter>
         </service>
 
+        <activity android:name=".view.PopupWindow"></activity>
     </application>
 
 </manifest>

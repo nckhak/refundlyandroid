@@ -111,11 +111,12 @@ public class LoginActivity extends AppCompatActivity
                 System.out.println(profile.toString());
 
                 //Tjek for fejl fra serveren
-                if (profile.get("Error") == true) {
+                if ((boolean) profile.get("Error") == true) {
                     problemDialog(3);
                 }
-                else if (profile.get("Error") == false) {
+                else if ((boolean) profile.get("Error") == false) {
                     Controller.controller.getUser().setRole((String) profile.get("Role"));
+                    Controller.controller.getUser().setId((int) profile.get("AccountId"));
                     Controller.controller.getUser().setAccountId(profile.get("AccountId").toString());
                     System.out.println(Controller.controller.getUser().toString());
                     goToMapscreen();
@@ -155,10 +156,10 @@ public class LoginActivity extends AppCompatActivity
 
     //Åbner mapscreen, og fjerner LoginActivity fra stacken, så man ikke kan gå tilbage hertil
     public void goToMapscreen(){
-        Intent i=new Intent(this, FragmentContainer.class);
-        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(i);
-        finish();
+            Intent i = new Intent(this, FragmentContainer.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(i);
+            finish();
     }
 
     //Dialog til valg af googlekonti
@@ -313,4 +314,5 @@ public class LoginActivity extends AppCompatActivity
         dlgAlert.setCancelable(false);
         dlgAlert.create().show();
     }
+
 }
