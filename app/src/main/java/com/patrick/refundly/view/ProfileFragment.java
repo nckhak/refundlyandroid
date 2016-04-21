@@ -1,20 +1,23 @@
 package com.patrick.refundly.view;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.patrick.refundly.Controller;
 import com.patrick.refundly.R;
 import com.patrick.refundly.domain.User;
 
-public class ProfileFragment extends Fragment {
+public class ProfileFragment extends Fragment implements View.OnClickListener{
 
     TextView mName, mEmail, mPhone;
+    Button applyBtn;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -25,6 +28,14 @@ public class ProfileFragment extends Fragment {
         mName=(TextView)v.findViewById(R.id.profileName);
         mEmail=(TextView)v.findViewById(R.id.profileEmail);
         mPhone=(TextView)v.findViewById(R.id.profilePhonenumber);
+        applyBtn=(Button)v.findViewById(R.id.applyBtn);
+        if(!Controller.controller.getUser().getRole().equals("C")){
+            applyBtn.setOnClickListener(this);
+        }else{
+            applyBtn.setEnabled(false);
+            applyBtn.setVisibility(View.INVISIBLE);
+        }
+
 
         if(Controller.controller.getUser() != null){
             updateProfileFields(Controller.controller.getUser());
@@ -42,4 +53,11 @@ public class ProfileFragment extends Fragment {
         mPhone.setText(user.getPhoneNumber());
     }
 
+    @Override
+    public void onClick(View v) {
+        if(v==applyBtn){
+            Intent i = new Intent(getActivity(), CollectorApplication.class);
+            startActivity(i);
+        }
+    }
 }

@@ -21,6 +21,8 @@
     <string name="pref_update_setting">App indstillinger</string>
     <string name="senderId">257762151236</string>
 
+    <string name="collectorapplytext">Du er nu igang med at ansøge om at blive opsamler hos Refundly. Indtast dit telefonnummer i feltet nedenfor, og tryk på send. Herefter vil en af vores medarbejdere kontakte dig, så vi kan få aktiveret din profil.</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
