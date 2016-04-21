@@ -20,6 +20,13 @@ public class RegistrationIntentService extends IntentService {
     }
     // ...
 
+    // abbreviated tag name
+    private static final String TAG = "RegIntentService";
+
+    public RegistrationIntentService() {
+        super(TAG);
+    }
+
     @Override
     public void onHandleIntent(Intent intent) {
         System.out.println("--------- ONHANDLEINTENT! -----------");
@@ -39,7 +46,9 @@ public class RegistrationIntentService extends IntentService {
 
         // ...
     }
-
+    private void sendRegistrationToServer(String token) {
+        // Add custom implementation, as needed.
+    }
     // ...
 }
 

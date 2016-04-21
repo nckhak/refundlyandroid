@@ -2,6 +2,8 @@ package com.patrick.refundly.view;
 
 
 
+import android.app.Activity;
+import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -66,12 +68,15 @@ public class MapFragmentCollector extends Fragment implements OnMapReadyCallback
     //Bruges således at kameraet kun rykker til collection markøren én gang.
     private boolean hasMovedCameraToCollection = false;
 
+    private boolean notificationIntent = false;
+
     //variabler til PopupWindow
     private Marker mMarker;
     private PopupWindow mPopupWindow;
     private int mWidth;
     private int mHeight;
     private int container_height;
+
 
 
     @Override
@@ -111,11 +116,20 @@ public class MapFragmentCollector extends Fragment implements OnMapReadyCallback
         mUserMarker = mMap.addMarker(marker);
         mUserMarker.setDraggable(false);
         mUserMarker.setVisible(false);
+        mUserMarker.setSnippet("Du er her");
 
         mMap.setOnMarkerClickListener(this);
         mMap.setOnCameraChangeListener(this);
         mMap.setOnMapClickListener(this);
-//        mMap.setInfoWindowAdapter(this);
+
+        notificationIntent = getActivity().getIntent().getBooleanExtra("NotificationIntent", false);
+
+        if (notificationIntent){
+            model.AddCollectionMarker();
+            LatLng collectionPosition = Controller.controller.getNotification().getPosition();
+            mCollectionMarker.setPosition(collectionPosition);
+            mCollectionMarker.setVisible(true);
+        }
 
     }
 
@@ -188,14 +202,15 @@ public class MapFragmentCollector extends Fragment implements OnMapReadyCallback
     @Override
     public boolean onMarkerClick(Marker marker) {
 
-        if (marker.equals(mUserMarker)){
+        if (marker.equals(mUserMarker)) {
             System.out.println("You clicked on current position");
-            model.FindCollection();
 
-            if (hasActiveCollection){
-
+            if(mUserMarker.isInfoWindowShown()){
+                mUserMarker.hideInfoWindow();
+                return true;
             }
 
+            mUserMarker.showInfoWindow();
             return true;
         }
         else if(marker.equals(mCollectionMarker)){
@@ -216,7 +231,6 @@ public class MapFragmentCollector extends Fragment implements OnMapReadyCallback
     @Override
     public void onMapClick(LatLng latLng) {
     }
-
 
 
 
@@ -340,4 +354,10 @@ public class MapFragmentCollector extends Fragment implements OnMapReadyCallback
     public void setHasMovedCameraToCollection(boolean hasMovedCameraToCollection) {
         this.hasMovedCameraToCollection = hasMovedCameraToCollection;
     }
+
+    public boolean isNotificationIntent() {
+        return notificationIntent;
+    }
+
+
 }

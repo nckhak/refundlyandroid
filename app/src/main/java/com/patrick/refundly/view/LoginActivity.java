@@ -137,7 +137,7 @@ public class LoginActivity extends AppCompatActivity
     }
 
     public void getDeviceId(){
-        GCMClientManager gcmmanager = new GCMClientManager(this, "257762151236");
+        GCMClientManager gcmmanager = new GCMClientManager(this, getString(R.string.senderId));
         gcmmanager.registerIfNeeded(new GCMClientManager.RegistrationCompletedHandler() {
             @Override
             public void onSuccess(String registrationId, boolean isNewRegistration) {

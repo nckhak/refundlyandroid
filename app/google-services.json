@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_id": "invertible-now-125312",
-    "project_number": "257762151236",
-    "name": "refundly"
+    "project_id": "default-demo-app-6f367",
+    "project_number": "532106230239",
+    "name": "Default Demo App"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:257762151236:android:70156b5318d78e3a",
+        "mobilesdk_app_id": "1:532106230239:android:cde87c1893a28005",
         "client_id": "android:com.patrick.refundly",
         "client_type": 1,
         "android_client_info": {

@@ -60,6 +60,9 @@ public class MapFragmentController {
     //Fragment
     private MapFragmentCollector fragment;
 
+    public MapFragmentController(){
+
+    }
 
     public MapFragmentController(MapFragmentCollector fragment){
         this.fragment = fragment;
@@ -110,13 +113,36 @@ public class MapFragmentController {
 
         UpdateMapMarkers(new LatLng(dLatitude, dLongitude));
 
-        if (!fragment.isHasCenteredCamera()) {
+        if(fragment.isNotificationIntent() && !fragment.HasMovedCameraToCollection()){
+            double latitude = Controller.controller.getNotification().getLatitude();
+            double longtitude = Controller.controller.getNotification().getLongtitude();
+            LatLng position = new LatLng(latitude, longtitude);
+            fragment.getmMap().animateCamera(CameraUpdateFactory.newLatLngZoom(position, 15));
+            fragment.setHasMovedCameraToCollection(true);
+            return;
+
+        }else if (!fragment.isNotificationIntent() && !fragment.isHasCenteredCamera()) {
             fragment.getmMap().animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(dLatitude, dLongitude), 15));
             fragment.setHasCenteredCamera(true);
-            return;
         }
+/*
+        if(fragment.isNotificationIntent()  && !fragment.HasMovedCameraToCollection()){
+            Marker marker = fragment.getmCollectionMarker();
+            LatLng position = marker.getPosition();
 
-        if(fragment.HasActiveCollection() && !fragment.HasMovedCameraToCollection()){
+            fragment.getmMap().animateCamera(CameraUpdateFactory.newLatLngZoom(
+                            new LatLng(
+                                    position.latitude, position.longitude)
+                            ,15)
+            );
+
+            fragment.setHasMovedCameraToCollection(true);
+            return;
+        }*/
+
+
+
+/*        if(fragment.HasActiveCollection() && !fragment.HasMovedCameraToCollection()){
             Marker marker = fragment.getmCollectionMarker();
             LatLng position = marker.getPosition();
 
@@ -127,7 +153,9 @@ public class MapFragmentController {
             );
 
             fragment.setHasMovedCameraToCollection(true);
-        }
+        }*/
+
+
     }
 
     public void StopLocationUpdates() {
@@ -151,7 +179,6 @@ public class MapFragmentController {
 
             @Override
             protected void onPostExecute(Object o) {
-                fragment.setHasActiveCollection(success);
                 if (success){
                     ShowToast("Opsamlingssted fundet!", Toast.LENGTH_LONG);
                     AddCollectionMarker();
@@ -164,19 +191,13 @@ public class MapFragmentController {
         }.execute();
     }
 
-    private void AddCollectionMarker(){
+    public void AddCollectionMarker() {
         fragment.setHasActiveCollection(true);
 
         MarkerOptions icon = new MarkerOptions().position(new LatLng(1, 1)).icon(BitmapDescriptorFactory.fromBitmap(Resize(R.drawable.collection)));
         fragment.setmCollectionMarker(fragment.getmMap().addMarker(icon));
         fragment.getmCollectionMarker().setDraggable(false);
         fragment.getmCollectionMarker().setVisible(false);
-        fragment.getmCollectionMarker().setTitle("Opsamling");
-        fragment.getmCollectionMarker().setSnippet(
-                "Kommentar: " + Controller.controller.getCollection().getPosertComment() +
-                        "\nFlakse mængde: " + Controller.controller.getCollection().getBagCount() +
-                        "\n" + Controller.controller.getCollection().getAddress());
-
 
     }
 
@@ -238,9 +259,9 @@ public class MapFragmentController {
         popupView.measure(size.x, size.y);
 
 
-        posterComment.setText(Controller.controller.getCollection().getPosertComment());
-        bagCount.setText(""+Controller.controller.getCollection().getBagCount());
-        address.setText(Controller.controller.getCollection().getAddress());
+        posterComment.setText(Controller.controller.getNotification().getPostercomment());
+        bagCount.setText(""+Controller.controller.getNotification().getBagcount());
+        address.setText(Controller.controller.getNotification().getAddress());
 
 
 
@@ -305,6 +326,7 @@ public class MapFragmentController {
                     Controller.controller.getCollection().setLatitude(object.getDouble("Latitude"));
                     Controller.controller.getCollection().setLongtitude(object.getDouble("Longtitude"));
                     con.disconnect();
+                    is.close();
 
                     double latitude = Controller.controller.getCollection().getLatitude();
                     double longtitude = Controller.controller.getCollection().getLongtitude();
@@ -420,11 +442,18 @@ public class MapFragmentController {
         fragment.getmUserMarker().setPosition(latlng);
         fragment.getmUserMarker().setVisible(true);
 
-        if (fragment.HasActiveCollection()){
+        /*if (fragment.HasActiveCollection()){
             LatLng collectionPosition = Controller.controller.getCollection().getPosition();
             fragment.getmCollectionMarker().setPosition(collectionPosition);
             fragment.getmCollectionMarker().setVisible(true);
-        }
+        }*/
+/*
+        if (fragment.isNotificationIntent()){
+            AddCollectionMarker();
+            LatLng collectionPosition = Controller.controller.getNotification().getPosition();
+            fragment.getmCollectionMarker().setPosition(collectionPosition);
+            fragment.getmCollectionMarker().setVisible(true);
+        }*/
 
     }
 

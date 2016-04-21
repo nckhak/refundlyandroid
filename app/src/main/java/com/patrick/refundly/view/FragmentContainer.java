@@ -1,5 +1,6 @@
 package com.patrick.refundly.view;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -10,11 +11,13 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 
 import com.patrick.refundly.Controller;
 import com.patrick.refundly.R;
+import com.patrick.refundly.model.GCMClientManager;
 
 public class FragmentContainer extends AppCompatActivity {
 
@@ -26,6 +29,8 @@ public class FragmentContainer extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         setContentView(R.layout.nav_menu);
 
         // Set a Toolbar to replace the ActionBar.
@@ -53,9 +58,11 @@ public class FragmentContainer extends AppCompatActivity {
                 fragmentClass = MapFragment.class;
                 nvDrawer.getMenu().findItem(R.id.nav_fourth_fragment).setVisible(true);
 
+
             }else if(role.equals("C")){
 
                 fragmentClass = MapFragmentCollector.class;
+
 
             }else{
                 System.out.println("/////////////////////////////////////////////////////");
@@ -198,6 +205,5 @@ public class FragmentContainer extends AppCompatActivity {
             nvDrawer.getMenu().getItem(i).setChecked(false);
         }
     }
-
 
 }

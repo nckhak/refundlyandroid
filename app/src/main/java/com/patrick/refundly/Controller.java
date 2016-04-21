@@ -5,6 +5,7 @@ import android.net.ConnectivityManager;
 
 import com.patrick.refundly.domain.Collection;
 import com.patrick.refundly.domain.CreateCollection;
+import com.patrick.refundly.domain.Notification;
 import com.patrick.refundly.domain.User;
 
 /**
@@ -15,6 +16,7 @@ public class Controller extends Application{
     User mUser;
     Collection mCollection;
     CreateCollection currentCollection;
+    Notification notification;
 
     public String getDeviceId() {
         return mDeviceId;
@@ -31,6 +33,7 @@ public class Controller extends Application{
         //Do Application initialization over here
         controller = this;
         mCollection = new Collection();
+        notification = new Notification();
     }
 
     public void newUser(String name, String id, String email){
@@ -68,6 +71,10 @@ public class Controller extends Application{
 
     public CreateCollection getCurrentCollection(){
         return currentCollection;
+    }
+
+    public Notification getNotification(){
+        return notification;
     }
 
 
