@@ -3,8 +3,10 @@ package com.patrick.refundly.view;
 import android.accounts.AccountManager;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,8 +17,10 @@ import android.widget.Toast;
 import com.google.android.gms.auth.GoogleAuthException;
 import com.google.android.gms.auth.GoogleAuthUtil;
 import com.google.android.gms.auth.UserRecoverableAuthException;
+import com.google.gson.Gson;
 import com.patrick.refundly.Controller;
 import com.patrick.refundly.R;
+import com.patrick.refundly.domain.User;
 import com.patrick.refundly.model.GCMClientManager;
 
 import org.json.JSONException;
@@ -40,6 +44,8 @@ public class LoginActivity extends AppCompatActivity
     private JSONObject profile;
     private Account[] accounts;
 
+    private SharedPreferences  mPrefs;
+
 
     //Email kan trækkes ud fra accounts, og access[1] bruges derfor ikke pt.
     private String[] access = {
@@ -52,6 +58,25 @@ public class LoginActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+
+        //Creating a shared preference
+        mPrefs = getPreferences(MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = mPrefs.getString("User", "");
+        User obj = gson.fromJson(json, User.class);
+
+        if (obj == null)
+        {
+            System.out.println("User dosent exists");
+
+        }else{
+            if(obj.getEmail().equals("")){
+                System.out.println("User is not logged in");
+            }else{
+                System.out.println("User is logged in. Handle code");
+                System.out.println(obj.getEmail());
+            }
+        }
         /*
         Test af REST interface
         testAPI();
@@ -119,6 +144,15 @@ public class LoginActivity extends AppCompatActivity
                     Controller.controller.getUser().setId((int) profile.get("AccountId"));
                     Controller.controller.getUser().setAccountId(profile.get("AccountId").toString());
                     System.out.println(Controller.controller.getUser().toString());
+
+                    SharedPreferences.Editor prefsEditor = mPrefs.edit();
+                    Gson gson = new Gson();
+                    User obj = new User();
+                    obj.setEmail(Controller.controller.getUser().getEmail());
+                    String json = gson.toJson(obj);
+                    prefsEditor.putString("User", json);
+                    prefsEditor.commit();
+                    System.out.println("User saved in SP");
                     goToMapscreen();
                 }
 
@@ -136,7 +170,7 @@ public class LoginActivity extends AppCompatActivity
         }
     }
 
-    public void getDeviceId(){
+    public void getDeviceId() {
         GCMClientManager gcmmanager = new GCMClientManager(this, getString(R.string.senderId));
         gcmmanager.registerIfNeeded(new GCMClientManager.RegistrationCompletedHandler() {
             @Override
@@ -167,12 +201,12 @@ public class LoginActivity extends AppCompatActivity
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Vælg konto");
         String[] names = new String[accounts.length];
-        for(int i=0; i<accounts.length;i++){
-            names[i]=accounts[i].name;
+        for (int i = 0; i < accounts.length; i++) {
+            names[i] = accounts[i].name;
         }
-                builder.setItems(names, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
+        builder.setItems(names, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
                         selected = which;
                         getAuthToken();
                     }
@@ -314,5 +348,7 @@ public class LoginActivity extends AppCompatActivity
         dlgAlert.setCancelable(false);
         dlgAlert.create().show();
     }
+
+
 
 }
