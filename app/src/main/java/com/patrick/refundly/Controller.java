@@ -36,15 +36,18 @@ public class Controller extends Application{
         notification = new Notification();
     }
 
-    public void newUser(String name, String id, String email){
+    public void newUser(String name, String email){
         mUser = new User();
         mUser.setUserName(name);
-        mUser.setmGoogleId(id);
         mUser.setEmail(email);
     }
 
     public User getUser(){
         return mUser;
+    }
+
+    public void RemoveUser(){
+        mUser = null;
     }
 
     public Collection getCollection(){

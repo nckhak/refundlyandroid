@@ -12,6 +12,8 @@ public class User {
     private String mRole;
     private String mGoogleId;
     private int Id;
+    private String mAccountId;
+    private boolean mActive;
 
     public String getAccountId() {
         return mAccountId;
@@ -22,8 +24,6 @@ public class User {
         this.mAccountId = mAccountId;
     }
 
-    private String mAccountId;
-    private boolean mActive;
 
     public String getmGoogleId() {
         return mGoogleId;

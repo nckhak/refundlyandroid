@@ -15,5 +15,9 @@
             android:id="@+id/nav_fourth_fragment"
             android:title="Mine opsamlinger"
             android:visible="false"/>
+
+        <item
+            android:id="@+id/nav_logout"
+            android:title="Log ud"/>
     </group>
 </menu>

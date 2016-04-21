@@ -44,8 +44,6 @@ public class LoginActivity extends AppCompatActivity
     private JSONObject profile;
     private Account[] accounts;
 
-    private SharedPreferences  mPrefs;
-
 
     //Email kan trækkes ud fra accounts, og access[1] bruges derfor ikke pt.
     private String[] access = {
@@ -60,7 +58,7 @@ public class LoginActivity extends AppCompatActivity
 
 
         //Creating a shared preference
-        mPrefs = getPreferences(MODE_PRIVATE);
+        final SharedPreferences mPrefs = getSharedPreferences("PREFERENCE", MODE_PRIVATE);
         Gson gson = new Gson();
         String json = mPrefs.getString("User", "");
         User obj = gson.fromJson(json, User.class);
@@ -69,12 +67,20 @@ public class LoginActivity extends AppCompatActivity
         {
             System.out.println("User dosent exists");
 
+
         }else{
             if(obj.getEmail().equals("")){
                 System.out.println("User is not logged in");
             }else{
                 System.out.println("User is logged in. Handle code");
-                System.out.println(obj.getEmail());
+                System.out.println("User Email " + obj.getEmail());
+
+                Controller.controller.newUser(obj.getUserName(), obj.getEmail());
+                Controller.controller.getUser().setId(obj.getId());
+                Controller.controller.getUser().setRole(obj.getRole());
+                goToMapscreen();
+                return;
+
             }
         }
         /*
@@ -82,7 +88,11 @@ public class LoginActivity extends AppCompatActivity
         testAPI();
         */
         if(Controller.controller.isConnected()) {
+
+            System.out.println("//////////////////////////1//////////////////////////");
+
             if(Controller.controller.getUser() == null) {
+                System.out.println("//////////////////////////2//////////////////////////");
                 AccountManager accountManager = AccountManager.get(this);
                 accounts = accountManager.getAccountsByType(GoogleAuthUtil.GOOGLE_ACCOUNT_TYPE);
 
@@ -90,6 +100,7 @@ public class LoginActivity extends AppCompatActivity
                     Toast.makeText(this, "Du skal være logget ind på en google-konto for at bruge Refundly", Toast.LENGTH_LONG).show();
                 }
                 if (accounts.length > 0) {
+                    System.out.println("//////////////////////////3//////////////////////////");
                     selectAccountDialog().show();
                 }
             }
@@ -145,11 +156,18 @@ public class LoginActivity extends AppCompatActivity
                     Controller.controller.getUser().setAccountId(profile.get("AccountId").toString());
                     System.out.println(Controller.controller.getUser().toString());
 
+                    final SharedPreferences mPrefs = getSharedPreferences("PREFERENCE", MODE_PRIVATE);
                     SharedPreferences.Editor prefsEditor = mPrefs.edit();
                     Gson gson = new Gson();
                     User obj = new User();
+
                     obj.setEmail(Controller.controller.getUser().getEmail());
+                    obj.setId(Controller.controller.getUser().getId());
+                    obj.setRole(Controller.controller.getUser().getRole());
+                    obj.setUserName(Controller.controller.getUser().getUserName());
+
                     String json = gson.toJson(obj);
+
                     prefsEditor.putString("User", json);
                     prefsEditor.commit();
                     System.out.println("User saved in SP");
@@ -230,7 +248,6 @@ public class LoginActivity extends AppCompatActivity
                     try {
                         Controller.controller.newUser(
                                 profile.getString("name"),
-                                profile.getString("id"),
                                 accounts[selected].name
                         );
                         System.out.println("LOGGET FUCKING IND NU!");

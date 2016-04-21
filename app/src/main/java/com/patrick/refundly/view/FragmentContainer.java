@@ -1,6 +1,7 @@
 package com.patrick.refundly.view;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -15,8 +16,10 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 
+import com.google.gson.Gson;
 import com.patrick.refundly.Controller;
 import com.patrick.refundly.R;
+import com.patrick.refundly.domain.User;
 import com.patrick.refundly.model.GCMClientManager;
 
 public class FragmentContainer extends AppCompatActivity {
@@ -25,6 +28,7 @@ public class FragmentContainer extends AppCompatActivity {
     private NavigationView nvDrawer;
     private Toolbar toolbar;
     private ActionBarDrawerToggle drawerToggle;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -138,6 +142,8 @@ public class FragmentContainer extends AppCompatActivity {
             case R.id.nav_third_fragment:
                 fragmentClass = AboutFragment.class;
                 break;
+            case R.id.nav_logout:
+                Logout();
             default:
                 return;
         }
@@ -158,6 +164,25 @@ public class FragmentContainer extends AppCompatActivity {
         //setTitle(menuItem.getTitle());
         // Close the navigation drawer
         mDrawer.closeDrawers();
+    }
+
+    private void Logout(){
+        final SharedPreferences mPrefs = getSharedPreferences("PREFERENCE", MODE_PRIVATE);
+        SharedPreferences.Editor prefsEditor = mPrefs.edit();
+        prefsEditor.clear();
+
+        if (prefsEditor.commit()){
+            System.out.println("User cleared in SP");
+        }else{
+            System.out.println("An error occured while clearing User in SP");
+        }
+
+        Controller.controller.RemoveUser();
+        finish();
+
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+
     }
 
     @Override
