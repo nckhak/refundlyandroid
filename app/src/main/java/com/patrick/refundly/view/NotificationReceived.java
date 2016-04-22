@@ -77,7 +77,7 @@ public class NotificationReceived extends AppCompatActivity implements View.OnCl
             finish();
         }
         else if(v == addressBtn){
-
+            model = new NotificationReceivedController(this);
             model.getAddress();
 
         }

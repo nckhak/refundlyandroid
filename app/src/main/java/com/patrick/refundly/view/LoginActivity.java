@@ -20,6 +20,8 @@ import com.google.android.gms.auth.UserRecoverableAuthException;
 import com.google.gson.Gson;
 import com.patrick.refundly.Controller;
 import com.patrick.refundly.R;
+import com.patrick.refundly.domain.Collection;
+import com.patrick.refundly.domain.Notification;
 import com.patrick.refundly.domain.User;
 import com.patrick.refundly.model.GCMClientManager;
 
@@ -57,28 +59,61 @@ public class LoginActivity extends AppCompatActivity
         setContentView(R.layout.activity_login);
 
 
+
         //Creating a shared preference
         final SharedPreferences mPrefs = getSharedPreferences("PREFERENCE", MODE_PRIVATE);
         Gson gson = new Gson();
-        String json = mPrefs.getString("User", "");
-        User obj = gson.fromJson(json, User.class);
+        String userJson = mPrefs.getString("User", "");
+        User userObj = gson.fromJson(userJson, User.class);
 
-        if (obj == null)
+        if (userObj == null)
         {
-            System.out.println("User dosent exists");
+            System.out.println("User obj dosent exists i SP");
 
 
         }else{
-            if(obj.getEmail().equals("")){
+            if(userObj.getEmail().equals("")){
                 System.out.println("User is not logged in");
             }else{
                 System.out.println("User is logged in. Handle code");
-                System.out.println("User Email " + obj.getEmail());
+                System.out.println("User Email " + userObj.getEmail());
 
-                Controller.controller.newUser(obj.getUserName(), obj.getEmail());
-                Controller.controller.getUser().setId(obj.getId());
-                Controller.controller.getUser().setRole(obj.getRole());
-                goToMapscreen();
+                //Giving controller user information
+                Controller.controller.newUser(userObj.getUserName(), userObj.getEmail());
+                Controller.controller.getUser().setId(userObj.getId());
+                Controller.controller.getUser().setRole(userObj.getRole());
+
+                //Getting collection in SP
+                gson = new Gson();
+                String notificationJson = mPrefs.getString("Collection", "");
+                Notification notificationObj = gson.fromJson(notificationJson, Notification.class);
+
+                //Giving controller information about an active collection for the user (if exists)
+                if (notificationObj == null){
+
+                    System.out.println("This user has not an active collection");
+                    goToMapscreen(false);
+
+                }else{
+
+                    System.out.println("An active collection found");
+                    System.out.println(notificationObj.getBagcount());
+                    System.out.println(notificationObj.getAddress());
+                    System.out.println(notificationObj.getLatitude());
+                    System.out.println(notificationObj.getLongtitude());
+                    System.out.println(notificationObj.getPostercomment());
+                    System.out.println(notificationObj.getMessage());
+
+
+                    Controller.controller.getNotification().setBagcount(notificationObj.getBagcount());
+                    Controller.controller.getNotification().setAddress(notificationObj.getAddress());
+                    Controller.controller.getNotification().setLatitude(notificationObj.getLatitude());
+                    Controller.controller.getNotification().setLongtitude(notificationObj.getLongtitude());
+                    Controller.controller.getNotification().setPostercomment(notificationObj.getPostercomment());
+                    Controller.controller.getNotification().setMessage(notificationObj.getMessage());
+                    goToMapscreen(true);
+                }
+
                 return;
 
             }
@@ -171,7 +206,7 @@ public class LoginActivity extends AppCompatActivity
                     prefsEditor.putString("User", json);
                     prefsEditor.commit();
                     System.out.println("User saved in SP");
-                    goToMapscreen();
+                    goToMapscreen(false);
                 }
 
             }else{
@@ -207,9 +242,13 @@ public class LoginActivity extends AppCompatActivity
 
 
     //Åbner mapscreen, og fjerner LoginActivity fra stacken, så man ikke kan gå tilbage hertil
-    public void goToMapscreen(){
+    public void goToMapscreen(boolean collection){
+
             Intent i = new Intent(this, FragmentContainer.class);
             i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+            if (collection) { i.putExtra("NotificationIntent", true); }
+
             startActivity(i);
             finish();
     }

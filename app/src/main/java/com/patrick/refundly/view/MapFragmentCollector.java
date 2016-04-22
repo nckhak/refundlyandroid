@@ -3,7 +3,9 @@ package com.patrick.refundly.view;
 
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -30,8 +32,12 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.gson.Gson;
 import com.patrick.refundly.Controller;
 import com.patrick.refundly.R;
+import com.patrick.refundly.domain.Collection;
+import com.patrick.refundly.domain.Notification;
+import com.patrick.refundly.domain.User;
 import com.patrick.refundly.model.MapFragmentController;
 
 
@@ -116,7 +122,6 @@ public class MapFragmentCollector extends Fragment implements OnMapReadyCallback
         mUserMarker = mMap.addMarker(marker);
         mUserMarker.setDraggable(false);
         mUserMarker.setVisible(false);
-        mUserMarker.setSnippet("Du er her");
 
         mMap.setOnMarkerClickListener(this);
         mMap.setOnCameraChangeListener(this);
@@ -129,6 +134,31 @@ public class MapFragmentCollector extends Fragment implements OnMapReadyCallback
             LatLng collectionPosition = Controller.controller.getNotification().getPosition();
             mCollectionMarker.setPosition(collectionPosition);
             mCollectionMarker.setVisible(true);
+
+            //Creating shared preferences
+            final SharedPreferences mPrefs = getActivity().getSharedPreferences("PREFERENCE", Context.MODE_PRIVATE);
+            SharedPreferences.Editor prefsEditor = mPrefs.edit();
+            Gson gson = new Gson();
+            Notification obj = new Notification();
+
+            //Creating notification object and assigning it to the object in the controller
+            Notification notification = Controller.controller.getNotification();
+
+            //fill our new object with data to be saved in SP
+            obj.setBagcount(notification.getBagcount());
+            obj.setLongtitude(notification.getLongtitude());
+            obj.setLatitude(notification.getLatitude());
+            obj.setPostercomment(notification.getPostercomment());
+            obj.setAddress(notification.getAddress());
+
+            //Parsing our object to a json string
+            String json = gson.toJson(obj);
+            System.out.println("JSON"+json);
+
+            prefsEditor.putString("Collection", json);
+            prefsEditor.commit();
+            System.out.println("Collection saved in SP");
+
         }
 
     }
@@ -202,18 +232,8 @@ public class MapFragmentCollector extends Fragment implements OnMapReadyCallback
     @Override
     public boolean onMarkerClick(Marker marker) {
 
-        if (marker.equals(mUserMarker)) {
-            System.out.println("You clicked on current position");
 
-            if(mUserMarker.isInfoWindowShown()){
-                mUserMarker.hideInfoWindow();
-                return true;
-            }
-
-            mUserMarker.showInfoWindow();
-            return true;
-        }
-        else if(marker.equals(mCollectionMarker)){
+        if(marker.equals(mCollectionMarker)){
             mPopupWindow = null;
 
             model.MoveMarkerToLowerScreen(marker);
