@@ -44,6 +44,7 @@
         android:layout_marginTop="40dp"
         android:layout_height="wrap_content"
         android:background="@color/colorLightGreen"
+        android:id="@+id/applyPhoneEditText"
         android:layout_gravity="center_horizontal"/>
 
     <Button
@@ -54,7 +55,29 @@
         android:text="Videre"
         android:textColor="@color/colorWhite"
         android:background="@drawable/rounded_btn"
-        android:id="@+id/applytoInfoBtn"/>
+        android:id="@+id/applyCollectorBtn"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/colorRed"
+        android:layout_gravity="center_horizontal"
+        android:textAlignment="center"
+        android:id="@+id/applyPhoneErrorTextView"
+        android:text="Fejl i indtastning af telefonnummer"/>
+
+    <RelativeLayout
+        android:id="@+id/loadingPanel"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center" >
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true" />
+    </RelativeLayout>
 
 
 </LinearLayout>
