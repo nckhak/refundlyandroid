@@ -21,6 +21,7 @@ import com.patrick.refundly.Controller;
 import com.patrick.refundly.R;
 import com.patrick.refundly.domain.User;
 import com.patrick.refundly.model.GCMClientManager;
+import com.patrick.refundly.model.LocationUpdateService;
 
 public class FragmentContainer extends AppCompatActivity {
 
@@ -143,6 +144,7 @@ public class FragmentContainer extends AppCompatActivity {
                 fragmentClass = AboutFragment.class;
                 break;
             case R.id.nav_logout:
+                stopService(new Intent(this,LocationUpdateService.class));
                 Logout();
             default:
                 return;

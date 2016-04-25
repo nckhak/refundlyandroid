@@ -24,6 +24,7 @@ import com.patrick.refundly.domain.Collection;
 import com.patrick.refundly.domain.Notification;
 import com.patrick.refundly.domain.User;
 import com.patrick.refundly.model.GCMClientManager;
+import com.patrick.refundly.model.LocationUpdateService;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -243,6 +244,9 @@ public class LoginActivity extends AppCompatActivity
 
     //Åbner mapscreen, og fjerner LoginActivity fra stacken, så man ikke kan gå tilbage hertil
     public void goToMapscreen(boolean collection){
+
+            Intent intent = new Intent(this, LocationUpdateService.class);
+            startService(intent);
 
             Intent i = new Intent(this, FragmentContainer.class);
             i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
