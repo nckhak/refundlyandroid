@@ -245,8 +245,10 @@ public class LoginActivity extends AppCompatActivity
     //Åbner mapscreen, og fjerner LoginActivity fra stacken, så man ikke kan gå tilbage hertil
     public void goToMapscreen(boolean collection){
 
-            Intent intent = new Intent(this, LocationUpdateService.class);
-            startService(intent);
+            if(Controller.controller.getUser().getRole().equals("C")) {
+                Intent intent = new Intent(this, LocationUpdateService.class);
+                startService(intent);
+            }
 
             Intent i = new Intent(this, FragmentContainer.class);
             i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
