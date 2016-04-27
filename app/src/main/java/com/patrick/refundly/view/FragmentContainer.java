@@ -169,7 +169,7 @@ public class FragmentContainer extends AppCompatActivity {
     private void Logout(){
         final SharedPreferences mPrefs = getSharedPreferences("PREFERENCE", MODE_PRIVATE);
         SharedPreferences.Editor prefsEditor = mPrefs.edit();
-        prefsEditor.clear();
+        prefsEditor.remove("User");
 
         if (prefsEditor.commit()){
             System.out.println("User cleared in SP");
@@ -180,7 +180,7 @@ public class FragmentContainer extends AppCompatActivity {
         Controller.controller.RemoveUser();
         finish();
 
-        Intent intent = new Intent(this, LoginActivity.class);
+        Intent intent = new Intent(this, StartActivity.class);
         startActivity(intent);
 
     }

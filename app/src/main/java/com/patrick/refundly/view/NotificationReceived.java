@@ -69,6 +69,7 @@ public class NotificationReceived extends AppCompatActivity implements View.OnCl
 
         if (v == getBtn){
             finish();
+            model.LockCollection();
             Intent intent = new Intent(this, FragmentContainer.class);
             intent.putExtra("NotificationIntent", true);
             startActivity(intent);

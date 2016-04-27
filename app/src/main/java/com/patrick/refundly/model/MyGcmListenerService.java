@@ -42,6 +42,7 @@ public class MyGcmListenerService extends GcmListenerService {
         String longtitude = data.getString("longtitude");
         String bagCount = data.getString("bagcount");
         String posterComment = data.getString("postercomment");
+        String collectionId = data.getString("collectionid");
 
 
         System.out.println("Received data:\n");
@@ -56,6 +57,7 @@ public class MyGcmListenerService extends GcmListenerService {
         Controller.controller.getNotification().setLatitude(Double.parseDouble(latitude));
         Controller.controller.getNotification().setLongtitude(Double.parseDouble(longtitude));
         Controller.controller.getNotification().setBagcount(Integer.parseInt(bagCount));
+        Controller.controller.getNotification().setCollectionId(Integer.parseInt(collectionId));
 
         sendNotification(msg);
 

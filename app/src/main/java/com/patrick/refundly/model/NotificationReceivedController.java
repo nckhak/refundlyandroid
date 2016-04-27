@@ -29,6 +29,54 @@ public class NotificationReceivedController {
     }
 
 
+    public void LockCollection(){
+        new AsyncTask(){
+            boolean success;
+
+            @Override
+            protected Object doInBackground(Object[] params) {
+                success = LockCollection_BG();
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Object o) {
+                super.onPostExecute(o);
+            }
+        }.execute();
+    }
+
+    private boolean LockCollection_BG(){
+
+        String urlString = "http://refundlystaging.azurewebsites.net/api/collection/UpdateCollectorCollectionId?" +
+                "Id="+Controller.controller.getUser().getId()+
+                "&" +
+                "collectorId=" +Controller.controller.getNotification().getCollectionId();
+
+        try {
+
+            URL url = new URL(urlString.toString());
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+
+            int sc = con.getResponseCode();
+
+            if (sc == 200){
+                System.out.println("Collection: updated & locked!");
+                return true;
+
+            }else{
+                System.out.println("Collection: error from server, sc = " +sc);
+                return false;
+            }
+
+
+        }catch (IOException e){
+            System.out.println("--------IOException--------");
+            e.printStackTrace();
+            return false;
+        }
+
+    }
 
     public void getAddress(){
         _activity.getAddress().setText("Henter adresse..");

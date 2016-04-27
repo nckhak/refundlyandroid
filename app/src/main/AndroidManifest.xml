@@ -34,11 +34,11 @@
         <activity
             android:name=".view.LoginActivity"
             android:screenOrientation="portrait">
-            <intent-filter>
+            <!--<intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            </intent-filter>-->
         </activity>
 
         <!--
@@ -58,7 +58,7 @@
 
         <activity
             android:name=".view.FragmentContainer"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".view.NotificationReceived"
             android:screenOrientation="portrait">
@@ -98,7 +98,14 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".view.CollectorApplication"></activity>
+        <activity android:name=".view.CollectorApplication" />
+        <activity android:name=".view.StartActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

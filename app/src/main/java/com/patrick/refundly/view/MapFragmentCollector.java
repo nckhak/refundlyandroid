@@ -150,6 +150,7 @@ public class MapFragmentCollector extends Fragment implements OnMapReadyCallback
             obj.setLatitude(notification.getLatitude());
             obj.setPostercomment(notification.getPostercomment());
             obj.setAddress(notification.getAddress());
+            obj.setCollectionId(notification.getCollectionId());
 
             //Parsing our object to a json string
             String json = gson.toJson(obj);

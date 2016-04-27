@@ -14,6 +14,15 @@ public class User {
     private int Id;
     private String mAccountId;
     private boolean mActive;
+    private String deviceId;
+
+    public String getDeviceId() {
+        return deviceId;
+    }
+
+    public void setDeviceId(String deviceId) {
+        this.deviceId = deviceId;
+    }
 
     public String getAccountId() {
         return mAccountId;
@@ -85,8 +94,18 @@ public class User {
     }
 
     public String toString(){
-        return "Navn: "+mUserName+"Email: "+mEmail+". ID: "+ mGoogleId+
-                ". Deviceid: "+Controller.controller.getDeviceId()+". Account id: "+mAccountId+". Role: "+mRole;
+        return "Navn: "+mUserName+". Email: "+mEmail+". ID: "+ mGoogleId+
+                ". Deviceid: "+Controller.controller.getDeviceId()+". Account id: "+mAccountId+". Role: "+mRole+ ". Phonenumber: " +mPhoneNumber;
+    }
+
+    public boolean isEqual(User obj) {
+
+        int count = 0;
+
+        count += this.mRole.equals(obj.mRole) ? 1: 0;
+        count += this.mUserName.equals(obj.mUserName) ? 1: 0;
+
+        return count > 1;
     }
 
 }

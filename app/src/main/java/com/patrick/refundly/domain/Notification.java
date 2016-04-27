@@ -13,6 +13,7 @@ public class Notification {
     private double longtitude;
     private double latitude;
     private int bagcount;
+    private int collectionId;
 
 
     public Notification() {
@@ -70,5 +71,11 @@ public class Notification {
         return new LatLng(latitude, longtitude);
     }
 
+    public int getCollectionId() {
+        return collectionId;
+    }
 
+    public void setCollectionId(int collectionId) {
+        this.collectionId = collectionId;
+    }
 }
