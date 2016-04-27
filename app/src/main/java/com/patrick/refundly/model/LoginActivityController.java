@@ -138,14 +138,17 @@ public class LoginActivityController {
         }
 
         _activity.getProgressBar().setVisibility(View.GONE);
+        Intent i = new Intent(_activity, LoginActivity.class);
+        _activity.startActivity(i);
 
-        if (redirectToMap){
+
+        /*if (redirectToMap){
             Intent i = new Intent(_activity, FragmentContainer.class);
             _activity.startActivity(i);
         }else{
             Intent i = new Intent(_activity, LoginActivity.class);
             _activity.startActivity(i);
-        }
+        }*/
 
 
 
@@ -153,6 +156,11 @@ public class LoginActivityController {
 
     //Åbner mapscreen, og fjerner LoginActivity fra stacken, så man ikke kan gå tilbage hertil
     public void goToMapscreen(boolean collection){
+
+        if(Controller.controller.getUser().getRole().equals("C")) {
+            Intent intent = new Intent(_activity, LocationUpdateService.class);
+            _activity.startService(intent);
+        }
 
         Intent i = new Intent(_activity, FragmentContainer.class);
         i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);

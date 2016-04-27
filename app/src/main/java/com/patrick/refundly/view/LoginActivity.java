@@ -24,6 +24,8 @@ import com.patrick.refundly.domain.Collection;
 import com.patrick.refundly.domain.Notification;
 import com.patrick.refundly.domain.User;
 import com.patrick.refundly.model.GCMClientManager;
+import com.patrick.refundly.model.LocationUpdateService;
+import com.patrick.refundly.model.LoginActivityController;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -46,6 +48,9 @@ public class LoginActivity extends AppCompatActivity
     private JSONObject profile;
     private Account[] accounts;
 
+    private LoginActivityController model;
+
+    private boolean hasCollection = false;
 
     //Email kan trækkes ud fra accounts, og access[1] bruges derfor ikke pt.
     private String[] access = {
@@ -58,66 +63,44 @@ public class LoginActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-
+        model = new LoginActivityController(this);
 
         //Creating a shared preference
         final SharedPreferences mPrefs = getSharedPreferences("PREFERENCE", MODE_PRIVATE);
+
+        //Getting collection in SP
         Gson gson = new Gson();
-        String userJson = mPrefs.getString("User", "");
-        User userObj = gson.fromJson(userJson, User.class);
+        String notificationJson = mPrefs.getString("Collection", "");
+        Notification notificationObj = gson.fromJson(notificationJson, Notification.class);
 
-        if (userObj == null)
-        {
-            System.out.println("User obj dosent exists i SP");
+        //Giving controller information about an active collection for the user (if exists)
+        if (notificationObj == null){
 
+            System.out.println("This user has not an active collection");
+            hasCollection = false;
 
         }else{
-            if(userObj.getEmail().equals("")){
-                System.out.println("User is not logged in");
-            }else{
-                System.out.println("User is logged in. Handle code");
-                System.out.println("User Email " + userObj.getEmail());
 
-                //Giving controller user information
-                Controller.controller.newUser(userObj.getUserName(), userObj.getEmail());
-                Controller.controller.getUser().setId(userObj.getId());
-                Controller.controller.getUser().setRole(userObj.getRole());
-
-                //Getting collection in SP
-                gson = new Gson();
-                String notificationJson = mPrefs.getString("Collection", "");
-                Notification notificationObj = gson.fromJson(notificationJson, Notification.class);
-
-                //Giving controller information about an active collection for the user (if exists)
-                if (notificationObj == null){
-
-                    System.out.println("This user has not an active collection");
-                    goToMapscreen(false);
-
-                }else{
-
-                    System.out.println("An active collection found");
-                    System.out.println(notificationObj.getBagcount());
-                    System.out.println(notificationObj.getAddress());
-                    System.out.println(notificationObj.getLatitude());
-                    System.out.println(notificationObj.getLongtitude());
-                    System.out.println(notificationObj.getPostercomment());
-                    System.out.println(notificationObj.getMessage());
+            System.out.println("An active collection found");
+            System.out.println(notificationObj.getBagcount());
+            System.out.println(notificationObj.getAddress());
+            System.out.println(notificationObj.getLatitude());
+            System.out.println(notificationObj.getLongtitude());
+            System.out.println(notificationObj.getPostercomment());
+            System.out.println(notificationObj.getMessage());
 
 
-                    Controller.controller.getNotification().setBagcount(notificationObj.getBagcount());
-                    Controller.controller.getNotification().setAddress(notificationObj.getAddress());
-                    Controller.controller.getNotification().setLatitude(notificationObj.getLatitude());
-                    Controller.controller.getNotification().setLongtitude(notificationObj.getLongtitude());
-                    Controller.controller.getNotification().setPostercomment(notificationObj.getPostercomment());
-                    Controller.controller.getNotification().setMessage(notificationObj.getMessage());
-                    goToMapscreen(true);
-                }
-
-                return;
-
-            }
+            Controller.controller.getNotification().setBagcount(notificationObj.getBagcount());
+            Controller.controller.getNotification().setAddress(notificationObj.getAddress());
+            Controller.controller.getNotification().setLatitude(notificationObj.getLatitude());
+            Controller.controller.getNotification().setLongtitude(notificationObj.getLongtitude());
+            Controller.controller.getNotification().setPostercomment(notificationObj.getPostercomment());
+            Controller.controller.getNotification().setMessage(notificationObj.getMessage());
+            hasCollection = true;
         }
+
+
+
         /*
         Test af REST interface
         testAPI();
@@ -140,7 +123,7 @@ public class LoginActivity extends AppCompatActivity
                 }
             }
             else {
-                getDeviceId();
+                model.getDeviceId("login");
                 testAPI();
             }
         }else
@@ -206,7 +189,13 @@ public class LoginActivity extends AppCompatActivity
                     prefsEditor.putString("User", json);
                     prefsEditor.commit();
                     System.out.println("User saved in SP");
-                    goToMapscreen(false);
+
+                    if (hasCollection){
+                        goToMapscreen(true);
+                    }else{
+                        goToMapscreen(false);
+                    }
+
                 }
 
             }else{
@@ -223,26 +212,15 @@ public class LoginActivity extends AppCompatActivity
         }
     }
 
-    public void getDeviceId() {
-        GCMClientManager gcmmanager = new GCMClientManager(this, getString(R.string.senderId));
-        gcmmanager.registerIfNeeded(new GCMClientManager.RegistrationCompletedHandler() {
-            @Override
-            public void onSuccess(String registrationId, boolean isNewRegistration) {
-
-                Log.d("Registration id", registrationId);
-                Controller.controller.setDeviceId(registrationId);
-            }
-
-            @Override
-            public void onFailure(String ex) {
-                super.onFailure(ex);
-            }
-        });
-    }
 
 
     //Åbner mapscreen, og fjerner LoginActivity fra stacken, så man ikke kan gå tilbage hertil
     public void goToMapscreen(boolean collection){
+
+            if(Controller.controller.getUser().getRole().equals("C")) {
+                Intent intent = new Intent(this, LocationUpdateService.class);
+                startService(intent);
+            }
 
             Intent i = new Intent(this, FragmentContainer.class);
             i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -291,7 +269,7 @@ public class LoginActivity extends AppCompatActivity
                         );
                         System.out.println("LOGGET FUCKING IND NU!");
                         System.out.println(Controller.controller.getUser().toString());
-                        getDeviceId();
+                        model.getDeviceId("login");
                         testAPI();
 
                     } catch (JSONException e) {
