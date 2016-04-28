@@ -11,7 +11,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.drawable.ColorDrawable;
-import android.location.Location;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v4.content.ContextCompat;
@@ -20,14 +19,11 @@ import android.view.Display;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdate;
@@ -243,7 +239,7 @@ public class MapFragmentController {
 
         TextView posterComment = (TextView) popupView.findViewById(R.id.commentText);
         TextView bagCount = (TextView) popupView.findViewById(R.id.bagCountText);
-        TextView address = (TextView) popupView.findViewById(R.id.addressText);
+        TextView distance = (TextView) popupView.findViewById(R.id.distanceText);
         ImageButton googleMapsBtn = (ImageButton) popupView.findViewById(R.id.googleMapBtn);
         googleMapsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -261,7 +257,7 @@ public class MapFragmentController {
 
         posterComment.setText(Controller.controller.getNotification().getPostercomment());
         bagCount.setText(""+Controller.controller.getNotification().getBagcount());
-        address.setText(Controller.controller.getNotification().getAddress());
+        distance.setText(""+Controller.controller.getNotification().getDistance() + " meter.");
 
 
 

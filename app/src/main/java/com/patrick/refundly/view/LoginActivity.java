@@ -96,6 +96,8 @@ public class LoginActivity extends AppCompatActivity
             Controller.controller.getNotification().setLongtitude(notificationObj.getLongtitude());
             Controller.controller.getNotification().setPostercomment(notificationObj.getPostercomment());
             Controller.controller.getNotification().setMessage(notificationObj.getMessage());
+            Controller.controller.getNotification().setDistance(notificationObj.getDistance());
+            Controller.controller.getNotification().setCollectionId(notificationObj.getCollectionId());
             hasCollection = true;
         }
 
@@ -153,8 +155,34 @@ public class LoginActivity extends AppCompatActivity
         try{
             String email = Controller.controller.getUser().getEmail();
             String deviceid = Controller.controller.getDeviceId();
+            String[] names = Controller.controller.getUser().getUserName().split("\\s+");
+            String firstname = "";
+            String lastname = "";
+            boolean first = true;
+
+
+            for (int i = 0; i < names.length-1; i++){
+
+                if (first){
+                    firstname += names[i];
+                    first = false;
+                }else{
+                    firstname += " " + names[i];
+                }
+
+            }
+            lastname = names[names.length-1];
+
             System.out.println("");
-            URL url = new URL("http://refundlystaging.azurewebsites.net/api/account/loginuser/?email="+email+"&deviceId="+deviceid);
+            URL url = new URL("http://refundlystaging.azurewebsites.net/api/account/loginuser/?email="+email+"&deviceId="+deviceid+"&firstname=" +firstname.replace(" ", "%20")+ "&lastname=" +lastname);
+            System.out.println("///////////////////////////////////////////////////");
+            System.out.println("///////////////////////////////////////////////////");
+            System.out.println("///////////////////////////////////////////////////");
+            System.out.println("///////////////////////////////////////////////////");
+            System.out.println("///////////////////////////////////////////////////");
+            System.out.println("///////////////////////////////////////////////////");
+            System.out.println("///////////////////////////////////////////////////");
+            System.out.println(url.toString());
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
             int sc = con.getResponseCode();
@@ -255,8 +283,8 @@ public class LoginActivity extends AppCompatActivity
             @Override
             protected Object doInBackground(Object... params) {
                 getAuthTokenBg();
-                return null;
-            }
+            return null;
+        }
 
             //Kører når baggrundstråden er færdig
             @Override

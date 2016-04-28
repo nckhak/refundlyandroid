@@ -149,6 +149,7 @@ public class LoginActivityController {
 
         }
 
+        _activity.finish();
         _activity.getProgressBar().setVisibility(View.GONE);
         Intent i = new Intent(_activity, LoginActivity.class);
         _activity.startActivity(i);

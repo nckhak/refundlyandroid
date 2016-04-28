@@ -14,7 +14,7 @@ public class Notification {
     private double latitude;
     private int bagcount;
     private int collectionId;
-
+    private int distance;
 
     public Notification() {
     }
@@ -78,4 +78,14 @@ public class Notification {
     public void setCollectionId(int collectionId) {
         this.collectionId = collectionId;
     }
+
+    public int getDistance() {
+        return distance;
+    }
+
+    public void setDistance(int distance) {
+        this.distance = distance;
+    }
 }
+
+

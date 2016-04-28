@@ -37,12 +37,14 @@ public class MyGcmListenerService extends GcmListenerService {
     // [START receive_message]
     @Override
     public void onMessageReceived(String from, Bundle data) {
+        System.out.println("BUNDLE"+data);
         String msg = data.getString("message");
         String latitude = data.getString("latitude");
         String longtitude = data.getString("longtitude");
         String bagCount = data.getString("bagcount");
         String posterComment = data.getString("postercomment");
         String collectionId = data.getString("collectionid");
+        String distance = data.getString("distance");
 
 
         System.out.println("Received data:\n");
@@ -51,6 +53,7 @@ public class MyGcmListenerService extends GcmListenerService {
         System.out.println(longtitude);
         System.out.println(bagCount);
         System.out.println(posterComment);
+        System.out.println(distance);
 
         Controller.controller.getNotification().setMessage(msg);
         Controller.controller.getNotification().setPostercomment(posterComment);
@@ -58,6 +61,7 @@ public class MyGcmListenerService extends GcmListenerService {
         Controller.controller.getNotification().setLongtitude(Double.parseDouble(longtitude));
         Controller.controller.getNotification().setBagcount(Integer.parseInt(bagCount));
         Controller.controller.getNotification().setCollectionId(Integer.parseInt(collectionId));
+        Controller.controller.getNotification().setDistance(Integer.parseInt(distance));
 
         sendNotification(msg);
 

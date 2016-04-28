@@ -47,11 +47,12 @@ public class NotificationReceivedController {
     }
 
     private boolean LockCollection_BG(){
+        System.out.println("Collection: \nId = " +Controller.controller.getUser().getId()+ "\n CollectorId =" + Controller.controller.getNotification().getCollectionId());
 
         String urlString = "http://refundlystaging.azurewebsites.net/api/collection/UpdateCollectorCollectionId?" +
-                "Id="+Controller.controller.getUser().getId()+
+                "Id="+Controller.controller.getNotification().getCollectionId()+
                 "&" +
-                "collectorId=" +Controller.controller.getNotification().getCollectionId();
+                "collectorId=" +Controller.controller.getUser().getId();
 
         try {
 
@@ -78,7 +79,7 @@ public class NotificationReceivedController {
 
     }
 
-    public void getAddress(){
+    /*public void getAddress(){
         _activity.getAddress().setText("Henter adresse..");
 
         new AsyncTask(){
@@ -104,7 +105,7 @@ public class NotificationReceivedController {
                 super.onPostExecute(o);
             }
         }.execute();
-    }
+    }*/
 
     private boolean getAddress_BG() {
         JSONObject object;

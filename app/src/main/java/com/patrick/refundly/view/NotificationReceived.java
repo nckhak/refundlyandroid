@@ -1,14 +1,11 @@
 package com.patrick.refundly.view;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.patrick.refundly.Controller;
 import com.patrick.refundly.R;
@@ -21,7 +18,7 @@ public class NotificationReceived extends AppCompatActivity implements View.OnCl
     TextView message;
     TextView bagcount;
     TextView postercomment;
-    TextView address;
+    TextView distance;
 
     Button getBtn, declineBtn, addressBtn;
 
@@ -40,7 +37,7 @@ public class NotificationReceived extends AppCompatActivity implements View.OnCl
         message = (TextView) findViewById(R.id.textViewMessage);
         bagcount = (TextView) findViewById(R.id.textViewBagCount);
         postercomment = (TextView) findViewById(R.id.textViewPosterComment);
-        address = (TextView) findViewById(R.id.textViewAddress);
+        distance = (TextView) findViewById(R.id.textViewDistance);
 
         getBtn = (Button) findViewById(R.id.buttonHent);
         declineBtn = (Button) findViewById(R.id.buttonAfvis);
@@ -58,8 +55,9 @@ public class NotificationReceived extends AppCompatActivity implements View.OnCl
         message.setText(Controller.controller.getNotification().getMessage());
         bagcount.setText(""+ Controller.controller.getNotification().getBagcount());
         postercomment.setText(Controller.controller.getNotification().getPostercomment());
+        distance.setText(""+ Controller.controller.getNotification().getDistance() +" meter.");
 
-        model.getAddress();
+        //model.getAddress();
 
 
     }
@@ -78,8 +76,8 @@ public class NotificationReceived extends AppCompatActivity implements View.OnCl
             finish();
         }
         else if(v == addressBtn){
-            model = new NotificationReceivedController(this);
-            model.getAddress();
+            //model = new NotificationReceivedController(this);
+            //model.getAddress();
 
         }
 
@@ -92,9 +90,9 @@ public class NotificationReceived extends AppCompatActivity implements View.OnCl
     * but setters and getters for the private
     * attributes.      /Peace be with you\   */
 
-    public TextView getAddress() {
+  /*  public TextView getAddress() {
         return address;
-    }
+    }*/
 
     public double getLongtitude() {
         return longtitude;
