@@ -76,6 +76,18 @@ public class LoginActivityController {
     }
 
     public void UserChanged(){
+
+        String serverUserRole = Controller.controller.getUser().getRole();
+        if (serverUserRole.equals("S")){
+            _activity.finish();
+            Intent intent = new Intent(_activity, StartActivity.class);
+            intent.putExtra("Standby", true);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            _activity.startActivity(intent);
+            return;
+        }
+
+
         User userObj = _activity.getUserObj();
         getDeviceId("start");
 

@@ -75,7 +75,13 @@ public class FragmentContainer extends AppCompatActivity {
                 System.out.println("///////THE USER IS NOT A PART OF THE SYSTEM YET//////");
                 System.out.println("/////////////////////////////////////////////////////");
                 System.out.println("/////////////////////////////////////////////////////");
+                finish();
+                Intent intent = new Intent(this, StartActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intent.putExtra("Standby", true);
+                startActivity(intent);
                 return;
+
             }
 
             Fragment fragment = null;

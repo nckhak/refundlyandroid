@@ -22,6 +22,8 @@ public class StartActivity extends Activity {
     private ProgressBar progressBar;
     private TextView text;
 
+    private boolean standby;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +33,17 @@ public class StartActivity extends Activity {
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         text = (TextView) findViewById(R.id.loadingText);
+
+
+        standby = getIntent().getBooleanExtra("Standby", false);
+
+        if (standby){
+            getIntent().addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            text.setText("Denne bruger er på standby.");
+            progressBar.setVisibility(View.GONE);
+            return;
+        }
+
 
         //Creating a shared preference
         final SharedPreferences mPrefs = getSharedPreferences("PREFERENCE", MODE_PRIVATE);
@@ -60,6 +73,8 @@ public class StartActivity extends Activity {
         }
 
     }
+
+
 
     public User getUserObj(){
         return userObj;
