@@ -1,10 +1,8 @@
-package com.patrick.refundly.view;
+package com.patrick.refundly.controllers;
 
 
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.Location;
 import android.os.Bundle;
@@ -14,8 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.PopupWindow;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -33,13 +29,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.Gson;
-import com.patrick.refundly.Controller;
 import com.patrick.refundly.R;
-import com.patrick.refundly.domain.Collection;
-import com.patrick.refundly.domain.Notification;
-import com.patrick.refundly.domain.User;
-import com.patrick.refundly.model.MapFragmentController;
-
+import com.patrick.refundly.models.Notification;
 
 
 public class MapFragmentCollector extends Fragment implements OnMapReadyCallback, LocationListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, View.OnClickListener, GoogleMap.OnMarkerClickListener, GoogleMap.OnCameraChangeListener, GoogleMap.OnMapClickListener {

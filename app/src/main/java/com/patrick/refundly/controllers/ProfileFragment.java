@@ -1,4 +1,4 @@
-package com.patrick.refundly.view;
+package com.patrick.refundly.controllers;
 
 
 import android.content.Intent;
@@ -10,9 +10,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.patrick.refundly.Controller;
 import com.patrick.refundly.R;
-import com.patrick.refundly.domain.User;
+import com.patrick.refundly.models.User;
 
 public class ProfileFragment extends Fragment implements View.OnClickListener{
 

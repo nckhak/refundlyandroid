@@ -1,6 +1,6 @@
-package com.patrick.refundly.domain;
+package com.patrick.refundly.models;
 
-import com.patrick.refundly.Controller;
+import com.patrick.refundly.controllers.Controller;
 
 /**
  * Created by patrick on 3/21/16.

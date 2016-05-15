@@ -1,9 +1,8 @@
-package com.patrick.refundly.view;
+package com.patrick.refundly.controllers;
 
 import android.accounts.AccountManager;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,21 +10,16 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.accounts.Account;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.GoogleAuthException;
 import com.google.android.gms.auth.GoogleAuthUtil;
 import com.google.android.gms.auth.UserRecoverableAuthException;
 import com.google.gson.Gson;
-import com.patrick.refundly.Controller;
 import com.patrick.refundly.R;
-import com.patrick.refundly.domain.Collection;
-import com.patrick.refundly.domain.Notification;
-import com.patrick.refundly.domain.User;
-import com.patrick.refundly.model.GCMClientManager;
-import com.patrick.refundly.model.LocationUpdateService;
-import com.patrick.refundly.model.LoginActivityController;
+import com.patrick.refundly.models.Notification;
+import com.patrick.refundly.models.User;
+import com.patrick.refundly.services.LocationUpdateService;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,7 +29,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ResourceBundle;
 
 /*
 Basis for kode vedrørende google-login er taget fra undervisningsappen

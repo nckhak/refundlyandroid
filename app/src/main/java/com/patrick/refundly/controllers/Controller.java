@@ -1,12 +1,12 @@
-package com.patrick.refundly;
+package com.patrick.refundly.controllers;
 import android.app.Application;
 import android.content.Context;
 import android.net.ConnectivityManager;
 
-import com.patrick.refundly.domain.Collection;
-import com.patrick.refundly.domain.CreateCollection;
-import com.patrick.refundly.domain.Notification;
-import com.patrick.refundly.domain.User;
+import com.patrick.refundly.models.Collection;
+import com.patrick.refundly.models.CreateCollection;
+import com.patrick.refundly.models.Notification;
+import com.patrick.refundly.models.User;
 
 /**
  * Created by patrick on 3/21/16.

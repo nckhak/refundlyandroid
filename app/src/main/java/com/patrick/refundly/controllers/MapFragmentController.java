@@ -1,4 +1,4 @@
-package com.patrick.refundly.model;
+package com.patrick.refundly.controllers;
 
 import android.Manifest;
 import android.app.Activity;
@@ -34,9 +34,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.patrick.refundly.Controller;
 import com.patrick.refundly.R;
-import com.patrick.refundly.view.MapFragmentCollector;
 
 import org.json.JSONArray;
 import org.json.JSONException;

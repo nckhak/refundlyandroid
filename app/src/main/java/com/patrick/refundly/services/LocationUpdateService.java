@@ -1,4 +1,4 @@
-package com.patrick.refundly.model;
+package com.patrick.refundly.services;
 
 import android.Manifest;
 import android.app.Service;

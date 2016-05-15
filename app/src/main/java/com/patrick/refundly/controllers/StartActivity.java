@@ -1,4 +1,4 @@
-package com.patrick.refundly.view;
+package com.patrick.refundly.controllers;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -9,11 +9,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
-import com.patrick.refundly.Controller;
 import com.patrick.refundly.R;
-import com.patrick.refundly.domain.Notification;
-import com.patrick.refundly.domain.User;
-import com.patrick.refundly.model.LoginActivityController;
+import com.patrick.refundly.models.User;
 
 public class StartActivity extends Activity {
 

@@ -1,7 +1,6 @@
-package com.patrick.refundly.view;
+package com.patrick.refundly.controllers;
 
 import android.os.Bundle;
-import android.preference.PreferenceFragment;
 import android.support.v7.preference.PreferenceFragmentCompat;
 
 import com.patrick.refundly.R;

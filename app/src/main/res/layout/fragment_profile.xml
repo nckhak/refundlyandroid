@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:layout_weight="1"
     android:background="@color/colorLightGreen"
-    tools:context="com.patrick.refundly.view.ProfileFragment">
+    tools:context="com.patrick.refundly.controllers.ProfileFragment">
 
     <TextView
         android:layout_width="wrap_content"

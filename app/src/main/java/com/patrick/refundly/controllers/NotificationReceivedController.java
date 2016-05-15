@@ -1,11 +1,6 @@
-package com.patrick.refundly.model;
+package com.patrick.refundly.controllers;
 
-import android.app.Activity;
 import android.os.AsyncTask;
-import android.view.View;
-
-import com.patrick.refundly.Controller;
-import com.patrick.refundly.view.NotificationReceived;
 
 import org.json.JSONArray;
 import org.json.JSONException;

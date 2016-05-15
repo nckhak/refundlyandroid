@@ -1,4 +1,4 @@
-package com.patrick.refundly.model;
+package com.patrick.refundly.controllers;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -8,15 +8,11 @@ import android.util.Log;
 import android.view.View;
 
 import com.google.gson.Gson;
-import com.patrick.refundly.Controller;
 import com.patrick.refundly.R;
-import com.patrick.refundly.domain.Notification;
-import com.patrick.refundly.domain.User;
-import com.patrick.refundly.view.FragmentContainer;
-import com.patrick.refundly.view.LoginActivity;
-import com.patrick.refundly.view.StartActivity;
+import com.patrick.refundly.models.User;
+import com.patrick.refundly.services.GCMClientManager;
+import com.patrick.refundly.services.LocationUpdateService;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 

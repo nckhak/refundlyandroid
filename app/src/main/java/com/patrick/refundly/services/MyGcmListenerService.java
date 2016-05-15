@@ -1,4 +1,4 @@
-package com.patrick.refundly.model;
+package com.patrick.refundly.services;
 
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -9,16 +9,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
-import android.util.Log;
 
 import com.google.android.gms.gcm.GcmListenerService;
-import com.patrick.refundly.Controller;
+import com.patrick.refundly.controllers.Controller;
 import com.patrick.refundly.R;
-import com.patrick.refundly.view.FragmentContainer;
-import com.patrick.refundly.view.MapFragmentCollector;
-import com.patrick.refundly.view.NotificationReceived;
+import com.patrick.refundly.controllers.NotificationReceived;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 public class MyGcmListenerService extends GcmListenerService {
@@ -87,7 +83,7 @@ public class MyGcmListenerService extends GcmListenerService {
         mBuilder.setAutoCancel(true);
 
 
-        // Creates an explicit intent for an Activity in your app
+        // Creates an explicit intent for an Activity
         Intent resultIntent = new Intent(this, NotificationReceived.class);
 
         // The stack builder object will contain an artificial back stack for the

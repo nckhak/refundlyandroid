@@ -1,4 +1,4 @@
-package com.patrick.refundly.view;
+package com.patrick.refundly.controllers;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,16 +12,11 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 
-import com.google.gson.Gson;
-import com.patrick.refundly.Controller;
 import com.patrick.refundly.R;
-import com.patrick.refundly.domain.User;
-import com.patrick.refundly.model.GCMClientManager;
-import com.patrick.refundly.model.LocationUpdateService;
+import com.patrick.refundly.services.LocationUpdateService;
 
 public class FragmentContainer extends AppCompatActivity {
 
@@ -60,7 +55,7 @@ public class FragmentContainer extends AppCompatActivity {
 
             if (role.equals("P")){
 
-                fragmentClass = MapFragment.class;
+                fragmentClass = MapFragmentPoster.class;
                 nvDrawer.getMenu().findItem(R.id.nav_fourth_fragment).setVisible(true);
 
 
@@ -208,14 +203,14 @@ public class FragmentContainer extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.flContent);
-        if(currentFragment instanceof MapFragment || currentFragment instanceof MapFragmentCollector ){
+        if(currentFragment instanceof MapFragmentPoster || currentFragment instanceof MapFragmentCollector ){
             super.onBackPressed();
         }else {
             try {
                 Class fragmentClass;
                 String role = Controller.controller.getUser().getRole();
                 if (role.equals("P")){
-                    fragmentClass = MapFragment.class;
+                    fragmentClass = MapFragmentPoster.class;
                 }else{
                     fragmentClass = MapFragmentCollector.class;
                 }

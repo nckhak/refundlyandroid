@@ -25,14 +25,14 @@
     <uses-permission android:name="com.patrick.refundly.permission.C2D_MESSAGE" />
 
     <application
-        android:name=".Controller"
+        android:name=".controllers.Controller"
         android:allowBackup="true"
         android:icon="@drawable/logo2"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".view.LoginActivity"
+            android:name=".controllers.LoginActivity"
             android:screenOrientation="portrait">
             <!--<intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -57,10 +57,10 @@
             android:value="@integer/google_play_services_version" />
 
         <activity
-            android:name=".view.FragmentContainer"
+            android:name=".controllers.FragmentContainer"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.NotificationReceived"
+            android:name=".controllers.NotificationReceived"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="OPEN_ACTIVITY_1" />
@@ -81,28 +81,28 @@
         </receiver>
 
         <service
-            android:name=".model.MyInstanceIDListenerService"
+            android:name=".services.MyInstanceIDListenerService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.android.gms.iid.InstanceID" />
             </intent-filter>
         </service>
         <service
-            android:name=".model.RegistrationIntentService"
+            android:name=".services.RegistrationIntentService"
             android:exported="false" />
         <service
-            android:name=".model.MyGcmListenerService"
+            android:name=".services.MyGcmListenerService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
             </intent-filter>
         </service>
         <service
-            android:name=".model.LocationUpdateService"
+            android:name=".services.LocationUpdateService"
             android:exported="false" />
 
-        <activity android:name=".view.CollectorApplication" />
-        <activity android:name=".view.StartActivity">
+        <activity android:name=".controllers.CollectorApplication" />
+        <activity android:name=".controllers.StartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
